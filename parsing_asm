@@ -1,0 +1,19 @@
+HEADER
+
+verifier :
+tailler .name (128)
+taille .comment (2048)
+taille champion (682)
+nombre magic au debut fichier
+
+CORE
+
+verifier existance de chqaue label
+verifier la validite lors d'un jump
+verifier arguments de chaque operation (pas de T_DIR a la place d'un T_REG par ex.)
+verifier qu'il n'y ai pqs de double declaration
+verifier que les label n'utilisent que des char de LABEL_CHARS
+verifier dernier retour a la ligne fin de fichier
+accepter label si instruction juste apres ou a la ligne inferieur
+verifier 1 instruction par ligne
+

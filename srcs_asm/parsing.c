@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/16 05:49:24 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/17 02:35:11 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,75 +75,6 @@ void			kingdom_hearts(t_env *env, const int fd)
 		parsing(env, str);
 	}
 	free(magic);
-}
-
-char			is_label(t_env *env, const char *str, int i)
-{
-	int		j;
-
-	j = -1;
-	while (++j < 16)
-		if (ft_strnstr(str, env->op[j], i))
-			return (0);
-	return (1);
-}
-
-void			save_label(t_env *env, const char *str, int i)
-{
-	t_label		*tmp;
-
-	if (!env->label)
-	{
-		env->label = ft_memalloc(sizeof(t_label));
-		env->label->label_name = ft_strndup(str, i);
-	}
-	else
-	{
-		tmp = env->label;
-		while (env->label->next)
-			env->label = env->label->next;
-		env->label->next = ft_memalloc(sizeof(t_label));
-		env->label = env->label->next;
-		env->label->label_name = ft_strndup(str, i);
-		env->label = tmp;
-	}
-}
-
-char			get_op(t_env *env, const char *str, int i)
-{
-	env->name = 1;
-	i = 0;
-	printf("%s\n", str);
-	return (1);
-}
-
-char			pars_core(t_env *env, const char *str)
-{
-	int		i;
-
-	i = 0;
-	alloc_operators(env);
-	if (comment_or_empty(str))
-		return (1);
-	while (*str < 33)
-		str++;
-	while (str[i] && str[i] != ':' && str[i] != ' ' && str[i] != ',' && str[i] != '%')
-	{
-		i++;
-		if (str[i] == ':')
-		{
-			if (is_label(env, str, i))
-			{
-				save_label(env, str, i);
-				if (!get_op(env, &str[i + 1], i))
-					return (0);
-			}
-		}
-		else if (str[i] == ' ' || str[i] == ',' || str[i] == '%')
-			if (!get_op(env, &str[i + 1], i))
-				return (0);
-	}
-	return (1);
 }
 
 char			parseur(t_env *env, const char *file_name)

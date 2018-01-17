@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/16 02:14:02 by abassibe         ###   ########.fr        #
+#    Updated: 2018/01/17 02:34:07 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME = Corewar
 SRCS =	asm.c \
 		parsing.c \
 		utils.c \
-		pars_name_comment.c
+		pars_name_comment.c \
+		pars_core.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/17 04:29:34 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/18 05:33:11 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,18 @@ char					comment_or_empty(const char *str);
 void					kingdom_hearts(t_env *env, const int fd);
 char					*creat_bin(char *str);
 void					alloc_operators(t_env *env);
+char					save_ulabel(t_env *env, const char *str);
+char					get_op1(t_env *env, const char *str);
+char					is_dir(t_env *env, const char *str);
+char					get_op6(t_env *env, const char *str, char **tab);
+char					get_op11(t_env *env, const char *str, char **tab);
+char					check_ld(t_env *env, char **tab);
+char					check_st(t_env *env, char **tab);
+char					check_add(char **tab);
+char					check_and(t_env *env, char **tab);
+char					check_ldi(t_env *env, char **tab);
+char					check_sti(t_env *env, char **tab);
+char					is_reg(const char *str);
+char					is_ind(t_env *env, const char *str);
+void					free_tab(char **str, int i);
 void					ft_error(const char *str, const int check);

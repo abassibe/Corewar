@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/17 02:34:07 by abassibe         ###   ########.fr        #
+#    Updated: 2018/01/18 05:28:27 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,12 @@ SRCS =	asm.c \
 		parsing.c \
 		utils.c \
 		pars_name_comment.c \
-		pars_core.c
+		pars_core.c \
+		get_op.c \
+		get_op2.c \
+		get_op3.c \
+		checker.c \
+		checker2.c
 
 OBJS = $(SRCS:.c=.o)
 

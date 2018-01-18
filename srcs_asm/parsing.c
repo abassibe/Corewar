@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/17 02:35:11 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/18 05:44:14 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void			kingdom_hearts(t_env *env, const int fd)
 	char	*str;
 	int		*magic;
 
+	return ;
 	if (!(magic = malloc(sizeof(int))))
 		ft_error("", 1);
 	magic[0] = 0xf383ea00;
@@ -77,6 +78,30 @@ void			kingdom_hearts(t_env *env, const int fd)
 	free(magic);
 }
 
+char			parseur_next(t_env *env, int fd, char *str)
+{
+	if (env->name == 0 || env->comment == 0)
+	{
+		if (!pars_name_comment(env, str))
+		{
+			free(env->file_name);
+			free(str);
+			close(fd);
+			return (0);
+		}
+	}
+	else if (!pars_core(env, str))
+	{
+		free(env->file_name);
+		//free la liste des labels
+		free(str);
+		close(fd);
+		return (0);
+	}
+	free(str);
+	return (1);
+}
+
 char			parseur(t_env *env, const char *file_name)
 {
 	char	*str;
@@ -89,26 +114,7 @@ char			parseur(t_env *env, const char *file_name)
 	}
 	env->file_name = ft_strdup(file_name);
 	while (get_next_line(fd, &str))
-	{
-		if (env->name == 0 || env->comment == 0)
-		{
-			if (!pars_name_comment(env, str))
-			{
-				free(env->file_name);
-				free(str);
-				close(fd);
-				return (0);
-			}
-		}
-		else if (!pars_core(env, str))
-		{
-			free(env->file_name);
-			//free la liste des labels
-			free(str);
-			close(fd);
+		if (!parseur_next(env, fd, str))
 			return (0);
-		}
-		free(str);
-	}
 	return (1);
 }

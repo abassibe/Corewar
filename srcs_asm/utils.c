@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 05:18:30 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/17 02:40:51 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/18 05:35:38 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*creat_bin(char *str)
 
 void	alloc_operators(t_env *env)
 {
-	env->op = ft_memalloc(sizeof(	char *) * 16);
+	env->op = ft_memalloc(sizeof(char *) * 16);
 	env->op[0] = ft_strdup("live");
 	env->op[1] = ft_strdup("ld");
 	env->op[2] = ft_strdup("st");
@@ -44,4 +44,14 @@ void	alloc_operators(t_env *env)
 	env->op[13] = ft_strdup("lldi");
 	env->op[14] = ft_strdup("lfork");
 	env->op[15] = ft_strdup("aff");
+}
+
+void	free_tab(char **tab, int i)
+{
+	int		j;
+
+	j = -1;
+	while (++j < i)
+		free(tab[j]);
+	free(tab);
 }

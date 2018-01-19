@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 04:40:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/18 05:26:56 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 04:30:23 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ static char		get_op10(t_env *env, const char *str, char **tab)
 				*str != '-' && *str != '%')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
+		env->save[2] = tab[2];
 		if (!check_ldi(env, tab))
 		{
-			free_tab(tab, 3);
+			free_tab(env->save, tab, 3);
 			return (0);
 		}
-		free_tab(tab, 3);
+		free_tab(env->save, tab, 3);
 		return (1);
 	}
 	return (get_op11(env, str, tab));
@@ -55,12 +58,15 @@ static char		get_op8(t_env *env, const char *str, char **tab)
 				*str != '-' && *str != '%')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
+		env->save[2] = tab[2];
 		if (!check_and(env, tab))
 		{
-			free_tab(tab, 3);
+			free_tab(env->save, tab, 3);
 			return (0);
 		}
-		free_tab(tab, 3);
+		free_tab(env->save, tab, 3);
 		return (1);
 	}
 	return (get_op9(env, str, tab));
@@ -75,12 +81,15 @@ static char		get_op7(t_env *env, const char *str, char **tab)
 				*str != '-' && *str != '%')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
+		env->save[2] = tab[2];
 		if (!check_and(env, tab))
 		{
-			free_tab(tab, 3);
+			free_tab(env->save, tab, 3);
 			return (0);
 		}
-		free_tab(tab, 3);
+		free_tab(env->save, tab, 3);
 		return (1);
 	}
 	return (get_op8(env, str, tab));
@@ -95,12 +104,15 @@ char			get_op6(t_env *env, const char *str, char **tab)
 				*str != '-' && *str != '%')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
+		env->save[2] = tab[2];
 		if (!check_and(env, tab))
 		{
-			free_tab(tab, 3);
+			free_tab(env->save, tab, 3);
 			return (0);
 		}
-		free_tab(tab, 3);
+		free_tab(env->save, tab, 3);
 		return (1);
 	}
 	return (get_op7(env, str, tab));

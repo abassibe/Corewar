@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 02:08:15 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/16 03:39:45 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 04:59:54 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,11 @@ char			comment_or_empty(const char *str)
 	i = 0;
 	while (str[i] && str[i] != '#')
 	{
-		if (str[i] > 32 && str[i] < 127)
+		if (str[i] > 32)
 			return (0);
 		i++;
 	}
-	if (i == 0)
-		return (1);
-	if (str[i] == '#')
-		return (1);
-	return (0);
+	return (1);
 }
 
 static char		check_name(const char *str)

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 04:40:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/18 05:27:05 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 04:25:08 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ static char		get_op5(t_env *env, const char *str, char **tab)
 		while (*str && *str != 'r')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
+		env->save[2] = tab[2];
 		if (!check_add(tab))
 		{
-			free_tab(tab, 3);
+			free_tab(env->save, tab, 3);
 			return (0);
 		}
-		free_tab(tab, 3);
+		free_tab(env->save, tab, 3);
 		return (1);
 	}
 	return (get_op6(env, str, tab));
@@ -37,12 +40,15 @@ static char		get_op4(t_env *env, const char *str, char **tab)
 		while (*str && *str != 'r')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
+		env->save[2] = tab[2];
 		if (!check_add(tab))
 		{
-			free_tab(tab, 3);
+			free_tab(env->save, tab, 3);
 			return (0);
 		}
-		free_tab(tab, 3);
+		free_tab(env->save, tab, 3);
 		return (1);
 	}
 	return (get_op5(env, str, tab));
@@ -55,12 +61,14 @@ static char		get_op3(t_env *env, const char *str, char **tab)
 		while (*str && *str != 'r')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
 		if (!check_st(env, tab))
 		{
-			free_tab(tab, 2);
+			free_tab(env->save, tab, 2);
 			return (0);
 		}
-		free_tab(tab, 2);
+		free_tab(env->save, tab, 2);
 		return (1);
 	}
 	return (get_op4(env, str, tab));
@@ -75,12 +83,14 @@ static char		get_op2(t_env *env, const char *str, char **tab)
 				*str != '-' && *str != '%')
 			str++;
 		tab = ft_strsplit(str, ',');
+		env->save[0] = tab[0];
+		env->save[1] = tab[1];
 		if (!check_ld(env, tab))
 		{
-			free_tab(tab, 2);
+			free_tab(env->save, tab, 2);
 			return (0);
 		}
-		free_tab(tab, 2);
+		free_tab(env->save, tab, 2);
 		return (1);
 	}
 	return (get_op3(env, str, tab));

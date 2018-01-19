@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/18 05:44:14 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 06:15:51 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		parsing(t_env *env, const char *str)
 	i = env->fd;
 }
 
-void			kingdom_hearts(t_env *env, const int fd)
+void			kingdom_hearts(t_env *env)
 {
 	char	*str;
 	int		*magic;
@@ -67,54 +67,47 @@ void			kingdom_hearts(t_env *env, const int fd)
 		ft_error("", 1);
 	magic[0] = 0xf383ea00;
 	env->bin_name = creat_bin(env->file_name);
-	remove(env->bin_name);
 	if ((FD = open(env->bin_name, O_CREAT | O_RDWR, 0777)) == -1)
 		ft_error("", 1);
 	write(FD, magic, 4);
-	while (get_next_line(fd, &str))
+	while (get_next_line(env->fd, &str))
 	{
 		parsing(env, str);
 	}
 	free(magic);
 }
 
-char			parseur_next(t_env *env, int fd, char *str)
+char			parseur_next(t_env *env, char *str)
 {
 	if (env->name == 0 || env->comment == 0)
 	{
 		if (!pars_name_comment(env, str))
-		{
-			free(env->file_name);
-			free(str);
-			close(fd);
 			return (0);
-		}
 	}
 	else if (!pars_core(env, str))
-	{
-		free(env->file_name);
-		//free la liste des labels
-		free(str);
-		close(fd);
 		return (0);
-	}
-	free(str);
 	return (1);
 }
 
 char			parseur(t_env *env, const char *file_name)
 {
 	char	*str;
-	int		fd;
 
-	if ((fd = open(file_name, O_RDONLY)) == -1)
+	if ((env->fd = open(file_name, O_RDONLY)) == -1)
 	{
 		write(2, "No such file or directory\n", 26);
 		return (0);
 	}
 	env->file_name = ft_strdup(file_name);
-	while (get_next_line(fd, &str))
-		if (!parseur_next(env, fd, str))
+	alloc_operators(env);
+	while (get_next_line(env->fd, &str))
+	{
+		if (!parseur_next(env, str))
+		{
+			ft_strdel(&str);
 			return (0);
+		}
+		ft_strdel(&str);
+	}
 	return (1);
 }

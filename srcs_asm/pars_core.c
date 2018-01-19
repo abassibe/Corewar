@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 02:33:43 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/18 05:34:29 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 04:41:37 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ char			pars_core(t_env *env, const char *s)
 	int		i;
 
 	i = 0;
-	alloc_operators(env);
 	if (comment_or_empty(s))
 		return (1);
 	while (*s < 33)

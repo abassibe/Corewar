@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/18 05:33:11 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 05:09:10 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "op.h"
 #include "fcntl.h"
 
-#define FD env->fd
+#define FD env->fd_bin
 
 typedef struct			s_label
 {
@@ -32,12 +32,14 @@ typedef struct			s_ulabel
 typedef struct			s_env
 {
 	char				*file_name;
+	int					fd_bin;
 	int					fd;
 	char				*bin_name;
 	t_label				*label;
 	t_ulabel			*ulab;
 	char				name;
 	char				comment;
+	char				*save[3];
 	char				**op;
 }						t_env;
 
@@ -45,7 +47,7 @@ char					parseur(t_env *env, const char *file_name);
 char					pars_name_comment(t_env *env, const char *str);
 char					pars_core(t_env *env, const char *str);
 char					comment_or_empty(const char *str);
-void					kingdom_hearts(t_env *env, const int fd);
+void					kingdom_hearts(t_env *env);
 char					*creat_bin(char *str);
 void					alloc_operators(t_env *env);
 char					save_ulabel(t_env *env, const char *str);
@@ -61,5 +63,7 @@ char					check_ldi(t_env *env, char **tab);
 char					check_sti(t_env *env, char **tab);
 char					is_reg(const char *str);
 char					is_ind(t_env *env, const char *str);
-void					free_tab(char **str, int i);
+void					free_tab(char **str, char **tab, int i);
+void					free_operator(t_env *env);
+void					free_struct(t_env *env);
 void					ft_error(const char *str, const int check);

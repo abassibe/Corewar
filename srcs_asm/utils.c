@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 05:18:30 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/18 05:35:38 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 05:15:17 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,44 @@ void	alloc_operators(t_env *env)
 	env->op[15] = ft_strdup("aff");
 }
 
-void	free_tab(char **tab, int i)
+void	free_tab(char **str, char **tab, int i)
 {
 	int		j;
 
 	j = -1;
 	while (++j < i)
-		free(tab[j]);
+		ft_strdel(&str[j]);
 	free(tab);
+}
+
+void	free_operator(t_env *env)
+{
+	int		i;
+
+	i = -1;
+	while (++i < 16)
+		ft_strdel(&env->op[i]);
+	free(env->op);
+}
+
+void	free_struct(t_env *env)
+{
+	t_label		*tmp;
+	t_ulabel	*tmp2;
+
+	while (env->label)
+	{
+		tmp = env->label->next;
+		ft_strdel(&env->label->label_name);
+		free(env->label);
+		env->label = tmp;
+	}
+	while (env->ulab)
+	{
+		tmp2 = env->ulab->next;
+		ft_strdel(&env->ulab->label);
+		free(env->ulab);
+		env->ulab = tmp2;
+	}
+	ft_strdel(&env->file_name);
 }

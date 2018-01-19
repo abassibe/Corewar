@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 05:29:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/18 05:33:16 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/19 04:32:02 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ char			is_reg(const char *str)
 
 char			check_ld(t_env *env, char **tab)
 {
+	while (*tab[0] < 33)
+		tab[0]++;
+	while (*tab[1] < 33)
+		tab[1]++;
 	if (is_dir(env, tab[0]) || is_ind(env, tab[0]))
 		if (is_reg(tab[1]))
 			return (1);

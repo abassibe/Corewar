@@ -6,56 +6,11 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/19 06:15:51 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/20 05:32:44 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
-
-static void		check_header(t_env *env, const char *str)
-{
-	int		i;
-	int		count;
-
-	count = 0;
-	i = 4;
-	if (str[1] == 'n' && str[2] == 'a' && str[3] == 'm' && str[4] == 'e')
-	{
-		while (str[i] && str[i] != '"')
-			i++;
-		if (!str[i] || !str[i + 1])
-			ft_error("No champion name", 0);
-		i++;
-		while (str[i] && str[i] != '"')
-		{
-			write(FD, &str[i], 1);
-			i++;
-			count++;
-			if (count > 127)
-				ft_error("Champion name too long", 0);
-		}
-		if (!str[i] || str[i] != '"')
-			ft_error("Wrong format champion name", 0);
-	}
-}
-
-static void		parsing(t_env *env, const char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] && str[i] < 33)
-		i++;
-	while (str[i])
-	{
-		if (str[i] == '#')
-			break ;
-		if (str[i] == '.')
-			check_header(env, &str[i]);
-		i++;
-	}
-	i = env->fd;
-}
 
 void			kingdom_hearts(t_env *env)
 {
@@ -71,9 +26,7 @@ void			kingdom_hearts(t_env *env)
 		ft_error("", 1);
 	write(FD, magic, 4);
 	while (get_next_line(env->fd, &str))
-	{
-		parsing(env, str);
-	}
+		;
 	free(magic);
 }
 
@@ -89,9 +42,49 @@ char			parseur_next(t_env *env, char *str)
 	return (1);
 }
 
+char			nl_end_of_file(int fd)
+{
+	char	*str;
+
+	str = ft_strnew(1);
+	lseek(fd, -1, SEEK_END);
+	read(fd, str, 1);
+	if (*str != '\n')
+	{
+		ft_strdel(&str);
+		write(2, "No new line at the end of the file\n", 35);
+		return (0);
+	}
+	ft_strdel(&str);
+	return (1);
+}
+
+char			label_verif(t_env *env)
+{
+	t_label		*tmp;
+
+	tmp = env->label;
+	if (!env->ulab || !env->label)
+		return (1);
+	while (env->ulab)
+	{
+				printf("ulab = %s, label = %s\n", env->ulab->label, env->label->label_name);
+		while (env->label)
+		{
+			if (!ft_strcmp(env->label->label_name, env->ulab->label))
+				return (1);
+			env->label = env->label->next;
+		}
+		env->label = tmp;
+		env->ulab = env->ulab->next;
+	}
+	return (0);
+}
+
 char			parseur(t_env *env, const char *file_name)
 {
 	char	*str;
+	int		value;
 
 	if ((env->fd = open(file_name, O_RDONLY)) == -1)
 	{
@@ -100,14 +93,17 @@ char			parseur(t_env *env, const char *file_name)
 	}
 	env->file_name = ft_strdup(file_name);
 	alloc_operators(env);
-	while (get_next_line(env->fd, &str))
+	while ((value = get_next_line(env->fd, &str)) > 0)
 	{
-		if (!parseur_next(env, str))
+		if (!parseur_next(env, str) || env->champ_size > CHAMP_MAX_SIZE)
 		{
 			ft_strdel(&str);
 			return (0);
 		}
 		ft_strdel(&str);
 	}
+	ft_strdel(&str);
+	if (value == -1 || !nl_end_of_file(env->fd) || !label_verif(env))
+		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/18 16:49:31 by abassibe          #+#    #+#             */
-/*   Updated: 2017/11/14 01:12:31 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/20 02:06:47 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char				*ft_strjoinfn(char const *s1, char const *s2);
 char				*ft_strjoinff(char *s1, char const *s2);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
+char				**ft_strsplit2(char const *s, char c, int range);
 char				*ft_itoa(int n);
 char				*ft_itoa_long(long int n);
 char				*ft_itoa_ulong(unsigned long int n);

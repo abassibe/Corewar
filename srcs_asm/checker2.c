@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 05:29:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/19 04:32:02 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/20 04:38:02 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char			is_dir(t_env *env, const char *str)
 			str++;
 		while (*str && *str < 33)
 			str++;
-		if (*str && *str != '#')
+		if (*str && (*str != '#' && *str != ';'))
 			return (0);
 		return (1);
 	}
@@ -55,7 +55,7 @@ char			is_ind(t_env *env, const char *str)
 			str++;
 		while (*str && *str < 33)
 			str++;
-		if (*str && *str != '#')
+		if (*str && (*str != '#' && *str != ';'))
 			return (0);
 		return (1);
 	}
@@ -91,8 +91,19 @@ char			check_ld(t_env *env, char **tab)
 		tab[0]++;
 	while (*tab[1] < 33)
 		tab[1]++;
-	if (is_dir(env, tab[0]) || is_ind(env, tab[0]))
+	if (is_dir(env, tab[0]))
+	{
 		if (is_reg(tab[1]))
+		{
+			env->champ_size += 7;
 			return (1);
+		}
+	}
+	if (is_ind(env, tab[0]))
+		if (is_reg(tab[1]))
+		{
+			env->champ_size += 5;
+			return (1);
+		}
 	return (0);
 }

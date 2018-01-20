@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 02:33:43 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/19 04:41:37 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/20 05:35:23 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,30 @@ static void		save_label(t_env *env, const char *str, int i)
 	}
 }
 
+char			*get_index(const char *str)
+{
+	int		i;
+	char	*ret;
+
+	i = 0;
+	while (str[i] > 32)
+		i++;
+	ret = ft_strsub(str, 0, i);
+	return (ret);
+}
+
 char			save_ulabel(t_env *env, const char *str)
 {
 	t_ulabel	*tmp;
+	char		*tmp2;
 
 	if (!*str)
 		return (0);
 	if (!env->ulab)
 	{
 		env->ulab = (t_ulabel *)ft_memalloc(sizeof(t_ulabel));
-		env->ulab->label = ft_strdup(str);
+		tmp2 = get_index(str);
+		env->ulab->label = ft_strdup(tmp2);
 	}
 	else
 	{
@@ -61,9 +75,11 @@ char			save_ulabel(t_env *env, const char *str)
 		while (env->ulab->next)
 			env->ulab = env->ulab->next;
 		env->ulab->next = (t_ulabel *)ft_memalloc(sizeof(t_ulabel));
-		env->ulab->next->label = ft_strdup(str);
+		tmp2 = get_index(str);
+		env->ulab->next->label = ft_strdup(tmp2);
 		env->ulab = tmp;
 	}
+	ft_strdel(&tmp2);
 	return (1);
 }
 

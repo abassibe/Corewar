@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/19 05:09:10 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/20 05:05:40 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct			s_env
 	char				*file_name;
 	int					fd_bin;
 	int					fd;
+	int					champ_size;
 	char				*bin_name;
 	t_label				*label;
 	t_ulabel			*ulab;
@@ -46,6 +47,7 @@ typedef struct			s_env
 char					parseur(t_env *env, const char *file_name);
 char					pars_name_comment(t_env *env, const char *str);
 char					pars_core(t_env *env, const char *str);
+char					label_verif(t_env *env);
 char					comment_or_empty(const char *str);
 void					kingdom_hearts(t_env *env);
 char					*creat_bin(char *str);
@@ -57,12 +59,13 @@ char					get_op6(t_env *env, const char *str, char **tab);
 char					get_op11(t_env *env, const char *str, char **tab);
 char					check_ld(t_env *env, char **tab);
 char					check_st(t_env *env, char **tab);
-char					check_add(char **tab);
+char					check_add(t_env *env, char **tab);
 char					check_and(t_env *env, char **tab);
 char					check_ldi(t_env *env, char **tab);
 char					check_sti(t_env *env, char **tab);
 char					is_reg(const char *str);
 char					is_ind(t_env *env, const char *str);
+char					nl_end_of_file(int fd);
 void					free_tab(char **str, char **tab, int i);
 void					free_operator(t_env *env);
 void					free_struct(t_env *env);

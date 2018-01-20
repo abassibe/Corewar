@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 04:40:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/19 04:28:28 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/20 05:02:27 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static char		get_op15(t_env *env, const char *str)
 			str++;
 		if (!is_dir(env, str))
 			return (0);
+		env->champ_size += 2;
 		return (1);
 	}
 	else if (str[0] == 'a' && str[1] == 'f' && str[2] == 'f' && str[3] < 33)
@@ -29,6 +30,7 @@ static char		get_op15(t_env *env, const char *str)
 			str++;
 		if (!is_reg(str))
 			return (0);
+		env->champ_size += 2;
 		return (1);
 	}
 	return (0);
@@ -42,7 +44,7 @@ static char		get_op14(t_env *env, const char *str, char **tab)
 		while (*str && *str != ':' && (*str < '0' || *str > '9') &&
 				*str != '-' && *str != '%')
 			str++;
-		tab = ft_strsplit(str, ',');
+		tab = ft_strsplit2(str, ',', 3);
 		env->save[0] = tab[0];
 		env->save[1] = tab[1];
 		env->save[2] = tab[2];
@@ -65,7 +67,7 @@ static char		get_op13(t_env *env, const char *str, char **tab)
 		while (*str && *str != ':' && (*str < '0' || *str > '9') &&
 				*str != '-' && *str != '%')
 			str++;
-		tab = ft_strsplit(str, ',');
+		tab = ft_strsplit2(str, ',', 2);
 		env->save[0] = tab[0];
 		env->save[1] = tab[1];
 		if (!check_ld(env, tab))
@@ -88,6 +90,7 @@ static char		get_op12(t_env *env, const char *str, char **tab)
 			str++;
 		if (!is_dir(env, str))
 			return (0);
+		env->champ_size += 2;
 		return (1);
 	}
 	return (get_op13(env, str, tab));
@@ -99,7 +102,7 @@ char			get_op11(t_env *env, const char *str, char **tab)
 	{
 		while (*str && *str != 'r')
 			str++;
-		tab = ft_strsplit(str, ',');
+		tab = ft_strsplit2(str, ',', 3);
 		env->save[0] = tab[0];
 		env->save[1] = tab[1];
 		env->save[2] = tab[2];

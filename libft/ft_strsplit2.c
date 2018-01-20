@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/18 15:09:47 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 01:53:27 by abassibe         ###   ########.fr       */
+/*   Created: 2017/01/24 18:11:09 by abassibe          #+#    #+#             */
+/*   Updated: 2018/01/20 02:06:11 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-char	*ft_strdup(const char *src)
+char		**ft_strsplit2(char const *s, char c, int range)
 {
-	size_t		c;
-	char		*dst;
+	char	**tb;
+	int		k;
+	int		p;
+	int		f;
 
-	c = 0;
-	if (!(dst = (char *)malloc(sizeof(char) * ft_strlen(src) + 1)))
+	k = 0;
+	p = 0;
+	f = 0;
+	if (s == NULL || !(tb = (char **)ft_memalloc(sizeof(char *) * range)))
 		return (NULL);
-	while (c != ft_strlen(src))
+	while (s[k] && p < range)
 	{
-		dst[c] = src[c];
-		c++;
+		while (s[k] && s[k] == c)
+			k++;
+		f = k;
+		while (s[f] && s[f] != c)
+			f++;
+		if (p <= range)
+			tb[p] = ft_strsub(s, k, f - k);
+		k = f;
+		p++;
 	}
-	dst[c] = '\0';
-	return (dst);
+	return (tb);
 }

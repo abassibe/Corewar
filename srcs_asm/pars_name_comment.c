@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 02:08:15 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/19 04:59:54 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/20 02:35:51 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char			comment_or_empty(const char *str)
 	int		i;
 
 	i = 0;
-	while (str[i] && str[i] != '#')
+	while (str[i] && (str[i] != '#' && str[i] != ';'))
 	{
 		if (str[i] > 32)
 			return (0);

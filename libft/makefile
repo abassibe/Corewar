@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:53 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/16 05:21:15 by abassibe         ###   ########.fr        #
+#    Updated: 2018/01/20 02:08:55 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS = ft_atoi.c \
 	   ft_strjoinfn.c \
 	   ft_strtrim.c \
 	   ft_strsplit.c \
+	   ft_strsplit2.c \
 	   ft_itoa.c \
 	   ft_itoa_long.c \
 	   ft_itoa_ulong.c \

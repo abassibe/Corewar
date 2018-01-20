@@ -6,11 +6,11 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/19 03:54:42 by abassibe         ###   ########.fr        #
+#    Updated: 2018/01/20 02:09:58 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Corewar
+NAME = asm
 
 SRCS =	asm.c \
 		parsing.c \

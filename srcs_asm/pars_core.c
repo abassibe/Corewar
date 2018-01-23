@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 02:33:43 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 05:35:23 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/23 01:53:40 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static char		is_label(t_env *env, const char *str, int i)
 	j = -1;
 	while (++j < 16)
 		if (ft_strnstr(str, env->op[j], i))
-			return (0);
+			if (str[ft_strlen(env->op[j])] != ':')
+				return (0);
 	return (1);
 }
 

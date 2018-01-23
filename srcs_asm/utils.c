@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 05:18:30 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/19 05:15:17 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/23 05:29:28 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*creat_bin(char *str)
 	char	*tmp;
 
 	tab = ft_strsplit(str, '.');
-	tmp = ft_strjoin(tab[0], ".cor");
+//	tmp = ft_strjoin(tab[0], ".cor");
+	tmp = ft_strjoin("test", ".cor");
 	free(tab[0]);
 	free(tab[1]);
 	free(tab);

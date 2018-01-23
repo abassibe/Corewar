@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:22:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 02:25:58 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/23 03:16:56 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		main(int ac, char **av)
 	i = 0;
 	if (ac < 2)
 		ft_error("No argument", 0);
+	if (ac > 2)
+		ft_printf("\n{cyan}------------ Champions compilation -----------\n\n");
 	while (++i < ac)
 	{
 		env = (t_env *)ft_memalloc(sizeof(t_env));
@@ -43,4 +45,6 @@ int		main(int ac, char **av)
 		free_struct(env);
 		free(env);
 	}
+	if (ac > 2)
+		ft_printf("\n{cyan}------------------------------------------------\n");
 }

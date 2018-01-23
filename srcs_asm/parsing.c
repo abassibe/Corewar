@@ -6,41 +6,11 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 05:32:44 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/23 02:58:58 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
-
-void			kingdom_hearts(t_env *env)
-{
-	char	*str;
-	int		*magic;
-
-	return ;
-	if (!(magic = malloc(sizeof(int))))
-		ft_error("", 1);
-	magic[0] = 0xf383ea00;
-	env->bin_name = creat_bin(env->file_name);
-	if ((FD = open(env->bin_name, O_CREAT | O_RDWR, 0777)) == -1)
-		ft_error("", 1);
-	write(FD, magic, 4);
-	while (get_next_line(env->fd, &str))
-		;
-	free(magic);
-}
-
-char			parseur_next(t_env *env, char *str)
-{
-	if (env->name == 0 || env->comment == 0)
-	{
-		if (!pars_name_comment(env, str))
-			return (0);
-	}
-	else if (!pars_core(env, str))
-		return (0);
-	return (1);
-}
 
 char			nl_end_of_file(int fd)
 {
@@ -68,7 +38,6 @@ char			label_verif(t_env *env)
 		return (1);
 	while (env->ulab)
 	{
-				printf("ulab = %s, label = %s\n", env->ulab->label, env->label->label_name);
 		while (env->label)
 		{
 			if (!ft_strcmp(env->label->label_name, env->ulab->label))
@@ -79,6 +48,18 @@ char			label_verif(t_env *env)
 		env->ulab = env->ulab->next;
 	}
 	return (0);
+}
+
+char			parseur_next(t_env *env, char *str)
+{
+	if (env->name == 0 || env->comment == 0)
+	{
+		if (!pars_name_comment(env, str))
+			return (0);
+	}
+	else if (!pars_core(env, str))
+		return (0);
+	return (1);
 }
 
 char			parseur(t_env *env, const char *file_name)
@@ -97,6 +78,8 @@ char			parseur(t_env *env, const char *file_name)
 	{
 		if (!parseur_next(env, str) || env->champ_size > CHAMP_MAX_SIZE)
 		{
+			if (env->champ_size > CHAMP_MAX_SIZE)
+				ft_printf("\"%s\" : Champion too big\n", file_name);
 			ft_strdel(&str);
 			return (0);
 		}

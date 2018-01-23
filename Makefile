@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/20 02:09:58 by abassibe         ###   ########.fr        #
+#    Updated: 2018/01/23 05:01:41 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,14 @@ SRCS =	asm.c \
 		get_op2.c \
 		get_op3.c \
 		checker.c \
-		checker2.c
+		checker2.c \
+		kingdom_hearts.c
 
 OBJS = $(SRCS:.c=.o)
 
 SRCPATH = ./srcs_asm/
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 all: $(NAME)
 

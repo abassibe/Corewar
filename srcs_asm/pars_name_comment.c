@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 02:08:15 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 02:35:51 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/23 03:46:45 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ static char		check_name(const char *str)
 		if (i > 128)
 			return (0);
 	}
+	str++;
+	while (*str)
+	{
+		if (*str == '#')
+			return (1);
+		if (*str > 32)
+		{
+			return (0);
+		}
+	}
 	return (1);
 }
 
@@ -59,6 +69,14 @@ static char		check_comment(const char *str)
 		if (i > 2048)
 			return (0);
 	}
+	str++;
+	while (*str)
+	{
+		if (*str == '#')
+			return (1);
+		if (*str > 32)
+			return (0);
+	}
 	return (1);
 }
 
@@ -69,7 +87,7 @@ static char		pars_name_comment_next(t_env *env, const char *str, int i)
 	{
 		if (!check_name(str))
 		{
-			write(2, "Name too large\n", 15);
+			write(2, "Badly formatted name\n", 21);
 			return (0);
 		}
 		env->name = 1;
@@ -80,7 +98,7 @@ static char		pars_name_comment_next(t_env *env, const char *str, int i)
 	{
 		if (!check_comment(str))
 		{
-			write(2, "Comment too large\n", 18);
+			write(2, "badly formatted comment\n", 24);
 			return (0);
 		}
 		env->comment = 1;

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 04:40:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 05:02:27 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/24 04:52:24 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char		get_op15(t_env *env, const char *str)
 			str++;
 		if (!is_dir(env, str))
 			return (0);
-		env->champ_size += 2;
+		env->champ_size += 3;
 		return (1);
 	}
 	else if (str[0] == 'a' && str[1] == 'f' && str[2] == 'f' && str[3] < 33)
@@ -30,7 +30,7 @@ static char		get_op15(t_env *env, const char *str)
 			str++;
 		if (!is_reg(str))
 			return (0);
-		env->champ_size += 2;
+		env->champ_size += 3;
 		return (1);
 	}
 	return (0);
@@ -41,8 +41,9 @@ static char		get_op14(t_env *env, const char *str, char **tab)
 	if (str[0] == 'l' && str[1] == 'l' && str[2] == 'd' &&
 			str[3] == 'i' && (str[4] < 33 || str[4] == '%' || str[4] == ':'))
 	{
+		str += 4;
 		while (*str && *str != ':' && (*str < '0' || *str > '9') &&
-				*str != '-' && *str != '%')
+				*str != '-' && *str != '%' && *str != 'r')
 			str++;
 		tab = ft_strsplit2(str, ',', 3);
 		env->save[0] = tab[0];
@@ -90,7 +91,7 @@ static char		get_op12(t_env *env, const char *str, char **tab)
 			str++;
 		if (!is_dir(env, str))
 			return (0);
-		env->champ_size += 2;
+		env->champ_size += 3;
 		return (1);
 	}
 	return (get_op13(env, str, tab));

@@ -6,15 +6,20 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 05:05:40 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/24 05:57:07 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "op.h"
-#include "fcntl.h"
+#ifndef ASM_H
+# define ASM_H
 
-#define FD env->fd_bin
+# include "libft.h"
+# include "op.h"
+# include <fcntl.h>
+
+# define FD env->fd_bin
+
+extern t_op				op_tab[17];
 
 typedef struct			s_label
 {
@@ -70,3 +75,5 @@ void					free_tab(char **str, char **tab, int i);
 void					free_operator(t_env *env);
 void					free_struct(t_env *env);
 void					ft_error(const char *str, const int check);
+
+#endif

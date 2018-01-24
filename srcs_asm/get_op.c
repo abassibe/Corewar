@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 04:40:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/23 01:52:13 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/24 04:52:43 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char			get_op1(t_env *env, const char *str)
 			str++;
 		if (!is_dir(env, str))
 			return (0);
-		env->champ_size += 4;
+		env->champ_size += 5;
 		return (1);
 	}
 	return (get_op2(env, str, tab));

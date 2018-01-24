@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 04:40:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/23 01:53:13 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/24 04:52:33 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static char		get_op10(t_env *env, const char *str, char **tab)
 	if (str[0] == 'l' && str[1] == 'd' && str[2] == 'i' && (str[3] < 33 ||
 				str[3] == '%' || str[3] == ':'))
 	{
+		str += 3;
 		while (*str && *str != ':' && (*str < '0' || *str > '9') &&
-				*str != '-' && *str != '%')
+				*str != '-' && *str != '%' && *str != 'r')
 			str++;
 		tab = ft_strsplit2(str, ',', 3);
 		env->save[0] = tab[0];
@@ -55,8 +56,9 @@ static char		get_op8(t_env *env, const char *str, char **tab)
 	if (str[0] == 'x' && str[1] == 'o' && str[2] == 'r' && (str[3] < 33 ||
 				str[3] == '%' || str[3] == ':'))
 	{
+		str += 3;
 		while (*str && *str != ':' && (*str < '0' || *str > '9') &&
-				*str != '-' && *str != '%')
+				*str != '-' && *str != '%' && *str != 'r')
 			str++;
 		tab = ft_strsplit2(str, ',', 3);
 		env->save[0] = tab[0];
@@ -78,8 +80,9 @@ static char		get_op7(t_env *env, const char *str, char **tab)
 	if (str[0] == 'o' && str[1] == 'r' && (str[2] < 33 || str[2] == '%' ||
 				str[2] == ':'))
 	{
+		str += 2;
 		while (*str && *str != ':' && (*str < '0' || *str > '9') &&
-				*str != '-' && *str != '%')
+				*str != '-' && *str != '%' && *str != 'r')
 			str++;
 		tab = ft_strsplit2(str, ',', 3);
 		env->save[0] = tab[0];
@@ -101,8 +104,9 @@ char			get_op6(t_env *env, const char *str, char **tab)
 	if (str[0] == 'a' && str[1] == 'n' && str[2] == 'd' && (str[3] < 33 ||
 				str[3] == '%' || str[3] == ':'))
 	{
+		str += 3;
 		while (*str && *str != ':' && (*str < '0' || *str > '9') &&
-				*str != '-' && *str != '%')
+				*str != '-' && *str != '%' && *str != 'r')
 			str++;
 		tab = ft_strsplit2(str, ',', 3);
 		env->save[0] = tab[0];

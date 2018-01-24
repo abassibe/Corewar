@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 05:29:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/20 04:38:02 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/24 04:53:30 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char			check_ld(t_env *env, char **tab)
 			return (1);
 		}
 	}
-	if (is_ind(env, tab[0]))
+	else if (is_ind(env, tab[0]))
 		if (is_reg(tab[1]))
 		{
 			env->champ_size += 5;

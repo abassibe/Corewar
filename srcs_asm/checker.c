@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 05:29:09 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/24 04:53:20 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/25 05:02:37 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	check_st(t_env *env, char **tab)
 {
+	if (!tab[0] || ! tab[1])
+		return (0);
 	while (*tab[0] < 33)
 		tab[0]++;
 	while (*tab[1] < 33)
@@ -36,6 +38,8 @@ char	check_st(t_env *env, char **tab)
 
 char	check_add(t_env *env, char **tab)
 {
+	if (!tab[0] || ! tab[1] || !tab[2])
+		return (0);
 	while (*tab[0] < 33)
 		tab[0]++;
 	while (*tab[1] < 33)
@@ -54,6 +58,10 @@ char	check_add(t_env *env, char **tab)
 
 char	check_and(t_env *env, char **tab)
 {
+	if (!tab[0] || ! tab[1] || !tab[2])
+		return (0);
+	if (!tab[0] || ! tab[1])
+		return (0);
 	while (*tab[0] < 33)
 		tab[0]++;
 	while (*tab[1] < 33)
@@ -140,6 +148,8 @@ char	check_and(t_env *env, char **tab)
 
 char	check_ldi(t_env *env, char **tab)
 {
+	if (!tab[0] || ! tab[1] || !tab[2])
+		return (0);
 	while (*tab[0] < 33)
 		tab[0]++;
 	while (*tab[1] < 33)
@@ -202,6 +212,8 @@ char	check_ldi(t_env *env, char **tab)
 
 char	check_sti(t_env *env, char **tab)
 {
+	if (!tab[0] || ! tab[1] || !tab[2])
+		return (0);
 	while (*tab[0] < 33)
 		tab[0]++;
 	while (*tab[1] < 33)

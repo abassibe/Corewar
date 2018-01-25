@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/23 05:01:41 by abassibe         ###   ########.fr        #
+#    Updated: 2018/01/25 00:51:22 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS =	asm.c \
 		get_op3.c \
 		checker.c \
 		checker2.c \
-		kingdom_hearts.c
+		kingdom_hearts.c \
+		print_header.c
 
 OBJS = $(SRCS:.c=.o)
 

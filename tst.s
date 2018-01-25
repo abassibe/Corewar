@@ -1,8 +1,8 @@
-#sdfhdfgjmdfgmh
+.name "test"
+.comment "test"
 
-     #fdbnmbv ndfn
+dfg:
 
-.name "tst" #dfgnjdfg
-.comment "tst"
+ld 10,r1
 
-aff r1
+dfd:

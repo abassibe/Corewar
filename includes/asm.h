@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/24 05:57:07 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/25 05:48:47 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_env
 	char				comment;
 	char				*save[3];
 	char				**op;
+	void				(**opf)();
 }						t_env;
 
 char					parseur(t_env *env, const char *file_name);
@@ -55,8 +56,12 @@ char					pars_core(t_env *env, const char *str);
 char					label_verif(t_env *env);
 char					comment_or_empty(const char *str);
 void					kingdom_hearts(t_env *env);
+int						switch_int(int octet);
+void					print_name_comment(t_env *env, const char *str);
 char					*creat_bin(char *str);
 void					alloc_operators(t_env *env);
+void					alloc_op_functions(t_env *env);
+char					is_label(t_env *env, const char *str, int i);
 char					save_ulabel(t_env *env, const char *str);
 char					get_op1(t_env *env, const char *str);
 char					is_dir(t_env *env, const char *str);
@@ -71,6 +76,22 @@ char					check_sti(t_env *env, char **tab);
 char					is_reg(const char *str);
 char					is_ind(t_env *env, const char *str);
 char					nl_end_of_file(int fd);
+void					print_live(t_env *env, const char *str);
+void					print_ld(t_env *env, const char *str);
+void					print_st(t_env *env, const char *str);
+void					print_add(t_env *env, const char *str);
+void					print_sub(t_env *env, const char *str);
+void					print_and(t_env *env, const char *str);
+void					print_or(t_env *env, const char *str);
+void					print_xor(t_env *env, const char *str);
+void					print_zjmp(t_env *env, const char *str);
+void					print_ldi(t_env *env, const char *str);
+void					print_sti(t_env *env, const char *str);
+void					print_fork(t_env *env, const char *str);
+void					print_lld(t_env *env, const char *str);
+void					print_lldi(t_env *env, const char *str);
+void					print_lfork(t_env *env, const char *str);
+void					print_aff(t_env *env, const char *str);
 void					free_tab(char **str, char **tab, int i);
 void					free_operator(t_env *env);
 void					free_struct(t_env *env);

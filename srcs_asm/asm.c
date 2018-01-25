@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:22:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/23 03:16:56 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/25 02:56:24 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int		main(int ac, char **av)
 	while (++i < ac)
 	{
 		env = (t_env *)ft_memalloc(sizeof(t_env));
+		alloc_operators(env);
 		if (parseur(env, av[i]))
 		{
 			ft_printf("{green}Compilation OK : '%s'\n", av[i]);

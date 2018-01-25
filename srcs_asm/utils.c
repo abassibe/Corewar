@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 05:18:30 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/23 05:29:28 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/25 03:11:08 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,42 @@ void	alloc_operators(t_env *env)
 	env->op[13] = ft_strdup("lldi");
 	env->op[14] = ft_strdup("lfork");
 	env->op[15] = ft_strdup("aff");
+}
+
+void	alloc_op_functions(t_env *env)
+{
+	env->opf = ft_memalloc(sizeof(void *) * 16);
+	env->opf[0] = print_live;
+	env->opf[1] = print_ld;
+	env->opf[2] = print_live;
+	env->opf[3] = print_live;
+	env->opf[4] = print_live;
+	env->opf[5] = print_live;
+	env->opf[6] = print_live;
+	env->opf[7] = print_live;
+	env->opf[8] = print_live;
+	env->opf[9] = print_live;
+	env->opf[10] = print_live;
+	env->opf[11] = print_live;
+	env->opf[12] = print_live;
+	env->opf[13] = print_live;
+	env->opf[14] = print_live;
+	env->opf[15] = print_live;
+/*	env->opf[1] = print_ld;
+	env->opf[2] = print_st;
+	env->opf[3] = print_add;
+	env->opf[4] = print_sub;
+	env->opf[5] = print_and;
+	env->opf[6] = print_or;
+	env->opf[7] = print_xor;
+	env->opf[8] = print_zjmp;
+	env->opf[9] = print_ldi;
+	env->opf[10] = print_sti;
+	env->opf[11] = print_fork;
+	env->opf[12] = print_lld;
+	env->opf[13] = print_lldi;
+	env->opf[14] = print_lfork;
+	env->opf[15] = print_aff;*/
 }
 
 void	free_tab(char **str, char **tab, int i)

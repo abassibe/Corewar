@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/24 04:59:25 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/25 02:56:05 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ char			label_verif(t_env *env)
 		while (env->label)
 		{
 			if (!ft_strcmp(env->label->label_name, env->ulab->label))
-				return (1);
+				break ;
+			if (!env->label->next)
+				return (0);
 			env->label = env->label->next;
 		}
 		env->label = tmp;
 		env->ulab = env->ulab->next;
 	}
-	return (0);
+	return (1);
 }
 
 char			parseur_next(t_env *env, char *str)
@@ -73,7 +75,6 @@ char			parseur(t_env *env, const char *file_name)
 		return (0);
 	}
 	env->file_name = ft_strdup(file_name);
-	alloc_operators(env);
 	while ((value = get_next_line(env->fd, &str)) > 0)
 	{
 		if (!parseur_next(env, str) || env->champ_size > CHAMP_MAX_SIZE)

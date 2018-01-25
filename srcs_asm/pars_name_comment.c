@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/16 02:08:15 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/23 03:46:45 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/25 04:26:45 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ static char		check_name(const char *str)
 		if (*str == '#')
 			return (1);
 		if (*str > 32)
-		{
 			return (0);
-		}
 	}
 	return (1);
 }

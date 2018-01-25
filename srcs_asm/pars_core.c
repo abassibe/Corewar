@@ -6,13 +6,13 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 02:33:43 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/23 01:53:40 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/25 06:15:37 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-static char		is_label(t_env *env, const char *str, int i)
+char			is_label(t_env *env, const char *str, int i)
 {
 	int		j;
 
@@ -32,6 +32,7 @@ static void		save_label(t_env *env, const char *str, int i)
 	{
 		env->label = ft_memalloc(sizeof(t_label));
 		env->label->label_name = ft_strndup(str, i);
+		env->label->pos = env->champ_size;
 	}
 	else
 	{
@@ -41,6 +42,7 @@ static void		save_label(t_env *env, const char *str, int i)
 		env->label->next = ft_memalloc(sizeof(t_label));
 		env->label = env->label->next;
 		env->label->label_name = ft_strndup(str, i);
+		env->label->pos = env->champ_size;
 		env->label = tmp;
 	}
 }

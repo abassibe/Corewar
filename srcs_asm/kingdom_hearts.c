@@ -6,126 +6,33 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 02:58:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/25 06:30:23 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/26 03:49:49 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-void	print_live(t_env *env, const char *str)
-{
-	int		tab[1];
-
-	tab[0] = 0x00000001;
-	write(FD, tab, 4);
-	while (*str != '%')
-		str++;
-	if (str[1] != ':')
-	{
-		tab[0] = ft_atoi(&str[1]);
-		write(FD, tab, 1);
-	}
-	else
-	{
-		tab[0] = env->champ_size;
-		write(FD, tab, 1);
-	}
-}
-
-int		is_dir_print(const char *str, int *i)
-{
-	int		save;
-
-	save = *i;
-	while (str[*i] != '%')
-	{
-		if (!str[*i] || str[*i] == ',')
-			break ;
-		(*i)++;
-	}
-	if (str[*i] == '%')
-		return (1);
-	*i = save;
-	return (0);
-}
-
-int		is_ind_print(const char *str, int *i)
-{
-	int		save;
-
-	save = *i;
-	while (str[*i] < 33)
-		(*i)++;
-	while (str[*i] > 33)
-		(*i)++;
-	while (str[*i] < 33)
-		(*i)++;
-	if (str[*i] == ':' || (str[*i] >= '0' && str[*i] <= '9'))
-		return (1);
-	*i = save;
-	return (0);
-}
-
-int		locate_label(t_label *label, const char *str)
-{
-	while (label)
-	{
-		if (ft_strnstr(str, label->label_name, ft_strlen(label->label_name)))
-			return (label->pos);
-		label = label->next;
-	}
-	return (0);
-}
-
-void	print_ld(t_env *env, const char *str)
-{
-	int		tab[1];
-	int		i;
-
-	tab[0] = 0x00000002;
-	i = 0;
-	write(FD, tab, 1);
-	if (is_dir_print(str, &i))
-	{
-		tab[0] = 0x90;
-		write(FD, tab, 1);
-		if (str[i + 1] == ':')
-		{
-			tab[0] = switch_int(locate_label(env->label, &str[i]));
-			write(FD, tab, 4);
-		}
-		else
-		{
-			tab[0] = switch_int(ft_atoi(&str[i + 1]));
-			write(FD, tab, 4);
-		}
-	}
-	else if (is_ind_print(str, &i))
-	{
-		tab[0] = 0xd0;
-		write(FD, tab, 1);
-		tab[0] = (locate_label(env->label, &str[i + 1]) >> 8 & 0x00ff00ff) |
-			(0xff00ff00 & locate_label(env->label, &str[i + 1]) << 8);
-		write(FD, tab, 2);
-	}
-	while (str[i] != ',')
-		i++;
-	while (str[i] != 'r')
-		i++;
-	tab[0] = ft_atoi(&str[i + 1]);
-	write(FD, tab, 1);
-}
-
 void	print_op(t_env *env, const char *str)
 {
-	int		i;
+	int			i;
+	t_label		*tmp;
 
 	i = -1;
+	tmp = env->label;
 	while (++i < 16)
-		if (ft_strnstr(str, env->op[i], ft_strlen(env->op[i])))
+	{
+		while (tmp)
 		{
-			env->opf[i](env, str);
+			if (ft_strnstr(str, tmp->label_name, ft_strlen(tmp->label_name)))
+				str += ft_strlen(tmp->label_name) + 1;
+			tmp = tmp->next;
+			while (*str && *str < 33)
+				str++;
 		}
+		if (ft_strnstr(str, env->op[i], ft_strlen(env->op[i])))
+			env->opf[i](env, str);
+		tmp = env->label;
+	}
 }
 
 void	print_core(t_env *env, const char *str)

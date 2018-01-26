@@ -3,6 +3,6 @@
 
 dfg:
 
-ld 10,r1
+and r1, r1, r5
 
 dfd:

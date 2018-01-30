@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 05:29:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/25 06:30:07 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/30 02:39:23 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char			is_dir(t_env *env, const char *str)
 {
-	if (*str == '%')
-		str++;
+	if (!((*str == '%') ? str++ : 0))
+		return (0);
 	if (*str == '-')
 	{
 		str++;

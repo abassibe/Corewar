@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 05:18:30 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/26 06:12:50 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/30 05:31:01 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ void	alloc_op_functions(t_env *env)
 	env->opf[3] = print_add;
 	env->opf[4] = print_sub;
 	env->opf[5] = print_and;
-	//env->opf[6] = print_or;
-	env->opf[7] = print_live;
-	env->opf[8] = print_live;
-	env->opf[9] = print_live;
-	env->opf[10] = print_live;
-	env->opf[11] = print_live;
-	env->opf[12] = print_live;
-	env->opf[13] = print_live;
-	env->opf[14] = print_live;
-	env->opf[15] = print_live;
+	env->opf[6] = print_or;
+	env->opf[7] = print_xor;
+	env->opf[8] = print_zjmp;
+	env->opf[9] = print_ldi;
+	env->opf[10] = print_sti;
+	env->opf[11] = print_fork;
+	env->opf[12] = print_lld;
+	env->opf[13] = print_lldi;
+	env->opf[14] = print_lfork;
+	env->opf[15] = print_aff;
 }
 
 void	free_tab(char **str, char **tab, int i)

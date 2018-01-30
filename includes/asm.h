@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/26 03:31:50 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/30 05:08:57 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_env
 	char				comment;
 	char				*save[3];
 	char				**op;
+	int					garb;
 	void				(**opf)();
 }						t_env;
 
@@ -95,6 +96,7 @@ void					print_aff(t_env *env, const char *str);
 void					print_dir(t_env *env, const char *str, int i,
 		int dir_size);
 void					print_ind(t_env *env, const char *str, int i);
+void					print_reg(t_env *env, const char *str, int *i);
 int						locate_label(t_label *label, const char *str);
 char					is_dir_print(const char *str, int *i);
 char					is_ind_print(const char *str, int *i);

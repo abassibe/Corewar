@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 01:39:18 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/26 05:01:07 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/30 03:18:25 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,18 @@ void			print_live(t_env *env, const char *str)
 	int		tab[1];
 
 	tab[0] = 0x00000001;
-	write(FD, tab, 4);
+	write(FD, tab, 1);
 	while (*str != '%')
 		str++;
 	if (str[1] != ':')
 	{
 		if ((tab[0] = ft_atoi(&str[1])) < 0)
-			tab[0] = 65536 - tab[0];
-		write(FD, tab, 1);
+			tab[0] = 4294967296 + tab[0];
 	}
 	else
-	{
 		tab[0] = locate_label(env->label, &str[2]);
-		write(FD, tab, 1);
-	}
+	tab[0] = switch_int(tab[0]);
+	write(FD, tab, 4);
 }
 
 void			print_ld(t_env *env, const char *str)

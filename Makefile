@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/26 04:58:25 by abassibe         ###   ########.fr        #
+#    Updated: 2018/01/30 05:24:04 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,14 @@ SRCS =	asm.c \
 		print_header.c \
 		check_print.c \
 		print_ld_live_st_add.c \
-		print_sub.c \
-		print_args.c
+		print_sub_zjmp_fork_lld.c \
+		print_args.c \
+		print_and.c \
+		print_or.c \
+		print_xor.c \
+		print_ldi.c \
+		print_lldi.c \
+		print_sti.c
 
 OBJS = $(SRCS:.c=.o)
 

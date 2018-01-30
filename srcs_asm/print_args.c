@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 03:27:40 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/26 03:34:01 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/30 05:34:20 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,31 @@ void	print_dir(t_env * env, const char *str, int i, int dir_size)
 	}
 	else
 		print_dir2(env, str, i, dir_size);
+}
+
+void			print_reg(t_env *env, const char *str, int *i)
+{
+	int		tab[1];
+
+	while (str[*i] && str[*i] != 'r')
+		(*i)++;
+	tab[0] = ft_atoi(&str[*i + 1]);
+	write(FD, tab, 1);
+}
+
+void			print_aff(t_env *env, const char *str)
+{
+	int		tab[1];
+	int		i;
+
+	tab[0] = 0x00000010;
+	write(FD, tab, 1);
+	i = 0;
+	tab[0] = 0x40;
+	write(FD, tab, 1);
+	while (str[i] != 'r')
+		i++;
+	i++;
+	tab[0] = ft_atoi(&str[i]);
+	write(FD, tab, 1);
 }

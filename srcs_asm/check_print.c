@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 01:35:50 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/26 05:40:21 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/30 05:05:26 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ char	is_ind_print(const char *str, int *i)
 	int		save;
 
 	save = *i;
-	while (str[*i] && str[*i] != 'r' && str[*i] < 33)
+	while (str[*i] && str[*i] != ':' && str[*i] < 33 && str[*i] != 'r')
 		(*i)++;
-	while (str[*i] && str[*i] != 'r' && str[*i] > 33 && (str[*i] < '0' || str[*i] > '9'))
+	while (str[*i] && str[*i] != ':' && str[*i] > 33 && (str[*i] < '0' || str[*i] > '9') && str[*i] != 'r')
 		(*i)++;
-	while (str[*i] && str[*i] != 'r' && str[*i] < 33)
+	while (str[*i] && str[*i] != ':' && str[*i] < 33 && str[*i] != 'r')
 		(*i)++;
 	if (str[*i] == ':' || (str[*i] >= '0' && str[*i] <= '9') ||
 			(str[*i] == '-' && (str[*i + 1] >= '0' && str[*i + 1] <= '9')))

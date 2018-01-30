@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 02:58:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/26 03:49:49 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/30 05:34:03 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ void	print_op(t_env *env, const char *str)
 			while (*str && *str < 33)
 				str++;
 		}
-		if (ft_strnstr(str, env->op[i], ft_strlen(env->op[i])))
+		if ((ft_strlen(str) >= 2) && (str[2] == 'i' && i < 3) &&
+				ft_strnstr(str, env->op[i], ft_strlen(env->op[i])))
+			;
+		else if (ft_strnstr(str, env->op[i], ft_strlen(env->op[i])))
 			env->opf[i](env, str);
 		tmp = env->label;
 	}

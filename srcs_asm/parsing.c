@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/25 02:56:05 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 03:23:48 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,17 @@ char			label_verif(t_env *env)
 	{
 		while (env->label)
 		{
+//			printf("label = %s, ulab = %s\n", env->label->label_name, env->ulab->label);
 			if (!ft_strcmp(env->label->label_name, env->ulab->label))
+			{
+//				printf("BREAK label = %s, ulab = %s\n", env->label->label_name, env->ulab->label);
 				break ;
+			}
 			if (!env->label->next)
+			{
+//				printf("RETURN 0 label = %s, ulab = %s\n", env->label->label_name, env->ulab->label);
 				return (0);
+			}
 			env->label = env->label->next;
 		}
 		env->label = tmp;

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 03:27:40 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 05:34:20 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 07:11:03 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ void	print_ind(t_env *env, const char *str, int i)
 
 	if (str[i] == ':')
 	{
-		tab[0] = (locate_label(env->label, &str[i + 1]) >> 8 & 0x00ff00ff) |
-			(0xff00ff00 & locate_label(env->label, &str[i + 1]) << 8);
+		tab[0] = (locate_label(env->label, &str[i + 1]));
+		tab[0] = tab[0] - POS;
+		tab[0] = (tab[0] >> 8 & 0x00ff00ff) | (0xff00ff00 & tab[0] << 8);
 		write(FD, tab, 2);
 	}
 	else
 	{
-		if ((tab[0] = ft_atoi(&str[i])) < 0)
+		if ((tab[0] = (int)ft_atoi_long(&str[i])) < 0)
 			tab[0] += 65536;
 		tab[0] = (tab[0] >> 8 & 0x00ff00ff) | (0xff00ff00 & tab[0] << 8);
 		write(FD, tab, 2);
@@ -37,14 +38,14 @@ void	print_dir2(t_env * env, const char *str, int i, int dir_size)
 
 	if (dir_size == 4)
 	{
-		if ((tab[0] = ft_atoi(&str[i + 1])) < 0 )
+		if ((tab[0] = (int)ft_atoi_long(&str[i + 1])) < 0 )
 			tab[0] = 4294967296 + tab[0];
 		tab[0] = switch_int(tab[0]);
 		write(FD, tab, 4);
 	}
 	else if (dir_size == 2)
 	{
-		if ((tab[0] = ft_atoi(&str[i + 1])) < 0)
+		if ((tab[0] = (int)ft_atoi_long(&str[i + 1])) < 0)
 			tab[0] = 65536 + tab[0];
 		tab[0] = (tab[0] >> 8 & 0x00ff00ff) | (0xff00ff00 & tab[0] << 8);
 		write(FD, tab, 2);
@@ -59,13 +60,16 @@ void	print_dir(t_env * env, const char *str, int i, int dir_size)
 	{
 		if (dir_size == 4)
 		{
-			tab[0] = switch_int(locate_label(env->label, &str[i + 2]));
+			tab[0] = locate_label(env->label, &str[i + 2]);
+			tab[0] = tab[0] - POS;
+			tab[0] = switch_int(tab[0]);
 			write(FD, tab, 4);
 		}
 		else
 		{
-			tab[0] = (locate_label(env->label, &str[i + 2]) >> 8 & 0x00ff00ff) |
-				(0xff00ff00 & locate_label(env->label, &str[i + 2]) << 8);
+			tab[0] = locate_label(env->label, &str[i + 2]);
+			tab[0] = tab[0] - POS;
+			tab[0] = (tab[0] >> 8 & 0x00ff00ff) | (0xff00ff00 & tab[0] << 8);
 			write(FD, tab, 2);
 		}
 	}
@@ -98,4 +102,5 @@ void			print_aff(t_env *env, const char *str)
 	i++;
 	tab[0] = ft_atoi(&str[i]);
 	write(FD, tab, 1);
+	POS += 3;
 }

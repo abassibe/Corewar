@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 01:35:50 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 05:05:26 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 06:59:11 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,26 @@
 
 int		locate_label(t_label *label, const char *str)
 {
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
 	while (label)
 	{
 		if (ft_strnstr(str, label->label_name, ft_strlen(label->label_name)))
-			return (label->pos);
+		{
+			while (label->label_name[i] && str[i])
+			{
+				i++;
+				if (!label->label_name[i] &&
+						(((str[i] < 'a' || str[i] > 'z') &&
+						  (str[i] < '0' || str[i] > '9') &&
+						  str[i] != '_') || !str[i]))
+					return (label->pos);
+			}
+			i = 0;
+		}
 		label = label->next;
 	}
 	return (0);
@@ -47,7 +63,8 @@ char	is_ind_print(const char *str, int *i)
 	save = *i;
 	while (str[*i] && str[*i] != ':' && str[*i] < 33 && str[*i] != 'r')
 		(*i)++;
-	while (str[*i] && str[*i] != ':' && str[*i] > 33 && (str[*i] < '0' || str[*i] > '9') && str[*i] != 'r')
+	while (str[*i] && str[*i] != ':' && str[*i] > 33 && (str[*i] < '0' ||
+				str[*i] > '9') && str[*i] != 'r' && str[*i] != '-')
 		(*i)++;
 	while (str[*i] && str[*i] != ':' && str[*i] < 33 && str[*i] != 'r')
 		(*i)++;

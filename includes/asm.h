@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 05:08:57 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 03:49:23 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 
 # define FD env->fd_bin
+# define POS env->pos
 
 extern t_op				op_tab[17];
 
@@ -48,6 +49,9 @@ typedef struct			s_env
 	char				*save[3];
 	char				**op;
 	int					garb;
+	int					i;
+	int					pos;
+	int					tab[1];
 	void				(**opf)();
 }						t_env;
 
@@ -62,7 +66,6 @@ void					print_name_comment(t_env *env, const char *str);
 char					*creat_bin(char *str);
 void					alloc_operators(t_env *env);
 void					alloc_op_functions(t_env *env);
-char					is_label(t_env *env, const char *str, int i);
 char					save_ulabel(t_env *env, const char *str);
 char					get_op1(t_env *env, const char *str);
 char					is_dir(t_env *env, const char *str);

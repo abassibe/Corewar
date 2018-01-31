@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 01:53:49 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 05:14:11 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 01:37:06 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void		print_sti_dir(t_env *env, const char *str, int *i, int save)
 		print_reg(env, str, &env->garb);
 		print_dir(env, str, save, 2);
 		print_dir(env, str, *i, 2);
+		POS += 7;
 	}
 	else
 	{
@@ -32,6 +33,7 @@ static void		print_sti_dir(t_env *env, const char *str, int *i, int save)
 		print_dir(env, str, save, 2);
 		print_reg(env, str, &*i);
 		(*i)++;
+		POS += 6;
 	}
 }
 
@@ -46,6 +48,7 @@ static void		print_sti_ind(t_env *env, const char *str, int *i, int save)
 		print_reg(env, str, &env->garb);
 		print_ind(env, str, save);
 		print_dir(env, str, *i, 2);
+		POS += 7;
 	}
 	else
 	{
@@ -55,6 +58,7 @@ static void		print_sti_ind(t_env *env, const char *str, int *i, int save)
 		print_ind(env, str, save);
 		print_reg(env, str, &*i);
 		(*i)++;
+		POS += 6;
 	}
 }
 
@@ -69,6 +73,7 @@ static void		print_sti_reg(t_env *env, const char *str, int *i, int save)
 		print_reg(env, str, &env->garb);
 		print_reg(env, str, &save);
 		print_dir(env, str, *i, 2);
+		POS += 6;
 	}
 	else
 	{
@@ -78,6 +83,7 @@ static void		print_sti_reg(t_env *env, const char *str, int *i, int save)
 		print_reg(env, str, &save);
 		print_reg(env, str, &*i);
 		(*i)++;
+		POS += 5;
 	}
 }
 

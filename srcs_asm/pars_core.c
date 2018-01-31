@@ -6,21 +6,27 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 02:33:43 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/25 06:15:37 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 03:49:25 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/asm.h"
 
-char			is_label(t_env *env, const char *str, int i)
+static char		is_label(const char *str, int i)
 {
 	int		j;
+	int		k;
 
 	j = -1;
-	while (++j < 16)
-		if (ft_strnstr(str, env->op[j], i))
-			if (str[ft_strlen(env->op[j])] != ':')
-				return (0);
+	k = -1;
+	while (++j < i)
+	{
+		while (++k < 37 && str[j] != LABEL_CHARS[k])
+			;
+		if (k >= 37)
+			return (0);
+		k = -1;
+	}
 	return (1);
 }
 
@@ -102,7 +108,7 @@ char			pars_core(t_env *env, const char *s)
 			return (0);
 		if (s[i] == ':')
 		{
-			if (is_label(env, s, i))
+			if (is_label(s, i))
 				save_label(env, s, i);
 			if (!get_op1(env, &s[i + 1]))
 				return (0);

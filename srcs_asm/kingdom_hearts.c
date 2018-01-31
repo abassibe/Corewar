@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 02:58:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 05:34:03 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 07:26:18 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	print_op(t_env *env, const char *str)
 		while (tmp)
 		{
 			if (ft_strnstr(str, tmp->label_name, ft_strlen(tmp->label_name)))
-				str += ft_strlen(tmp->label_name) + 1;
+				str += ft_strlen(tmp->label_name) + 2;
+			if (*str == ':')
+				str++;
 			tmp = tmp->next;
 			while (*str && *str < 33)
 				str++;
@@ -38,18 +40,34 @@ void	print_op(t_env *env, const char *str)
 	}
 }
 
-void	print_core(t_env *env, const char *str)
+char	is_label(const char *str)
 {
 	int		i;
 
 	i = 0;
+	while (str[i] && str[i] != ':')
+		i++;
+	if (!str[i])
+		return (0);
+	i++;
+	if (!str[i])
+		return (1);
+	while (str[i])
+	{
+		if (str[i] > 32)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	print_core(t_env *env, const char *str)
+{
 	alloc_op_functions(env);
 	while (*str < 33)
 		str++;
-	if (i == 2)
-		;
-//	if (is_label(env, str, i))
-//		fonction_du_label();
+	if (is_label(str))
+		return ;
 	else
 		print_op(env, str);
 }

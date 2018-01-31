@@ -16,7 +16,7 @@ zork:		live	%42
 zork_:		live	%42
 		zjmp	%-5
 		
-zork2:		live	%42
+zork2:		live	%4
 		fork	%:zork3
 		st	r1,13
 		ld	%0,r15

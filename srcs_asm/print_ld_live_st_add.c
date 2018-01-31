@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 01:39:18 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 03:18:25 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/01/31 07:35:10 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,17 @@ void			print_live(t_env *env, const char *str)
 		str++;
 	if (str[1] != ':')
 	{
-		if ((tab[0] = ft_atoi(&str[1])) < 0)
+		if ((tab[0] = (int)ft_atoi_long(&str[1])) < 0)
 			tab[0] = 4294967296 + tab[0];
 	}
 	else
+	{
 		tab[0] = locate_label(env->label, &str[2]);
+		tab[0] = tab[0] - POS;
+	}
 	tab[0] = switch_int(tab[0]);
 	write(FD, tab, 4);
+	POS += 5;
 }
 
 void			print_ld(t_env *env, const char *str)
@@ -44,12 +48,14 @@ void			print_ld(t_env *env, const char *str)
 		tab[0] = 0x90;
 		write(FD, tab, 1);
 		print_dir(env, str, i, 4);
+		POS += 7;
 	}
 	else if (is_ind_print(str, &i))
 	{
 		tab[0] = 0xd0;
 		write(FD, tab, 1);
 		print_ind(env, str, i);
+		POS += 5;
 	}
 	while (str[i] != ',')
 		i++;
@@ -74,6 +80,7 @@ static void		print_st2(t_env *env, const char *str, int i, int save)
 		i++;
 	tab[0] = ft_atoi(&str[i + 1]);
 	write(FD, tab, 1);
+	POS += 4;
 }
 
 void			print_st(t_env *env, const char *str)
@@ -88,6 +95,8 @@ void			print_st(t_env *env, const char *str)
 	while (str[i] != 'r')
 		i++;
 	save = i;
+	while (str[i] != ',')
+		i++;
 	if (is_ind_print(str, &i))
 	{
 		tab[0] = 0x70;
@@ -95,6 +104,7 @@ void			print_st(t_env *env, const char *str)
 		tab[0] = ft_atoi(&str[save + 1]);
 		write(FD, tab, 1);
 		print_ind(env, str, i);
+		POS += 5;
 	}
 	else
 		print_st2(env, str, i, save);
@@ -110,6 +120,8 @@ void			print_add(t_env *env, const char *str)
 	i = 0;
 	tab[0] = 0x54;
 	write(FD, tab, 1);
+//	while (str[i] > 32)
+//		i++;
 	while (str[i] != 'r')
 		i++;
 	i++;
@@ -124,4 +136,5 @@ void			print_add(t_env *env, const char *str)
 		i++;
 	tab[0] = ft_atoi(&str[i + 1]);
 	write(FD, tab, 1);
+	POS += 5;
 }

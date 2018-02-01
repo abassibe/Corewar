@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 01:39:18 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/31 07:35:10 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/01 02:02:18 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,22 @@ void			print_live(t_env *env, const char *str)
 
 void			print_ld(t_env *env, const char *str)
 {
-	int		tab[1];
 	int		i;
 
-	tab[0] = 0x00000002;
+	env->tab[0] = 0x00000002;
 	i = 0;
-	write(FD, tab, 1);
+	write(FD, env->tab, 1);
 	if (is_dir_print(str, &i))
 	{
-		tab[0] = 0x90;
-		write(FD, tab, 1);
+		env->tab[0] = 0x90;
+		write(FD, env->tab, 1);
 		print_dir(env, str, i, 4);
 		POS += 7;
 	}
 	else if (is_ind_print(str, &i))
 	{
-		tab[0] = 0xd0;
-		write(FD, tab, 1);
+		env->tab[0] = 0xd0;
+		write(FD, env->tab, 1);
 		print_ind(env, str, i);
 		POS += 5;
 	}
@@ -61,8 +60,8 @@ void			print_ld(t_env *env, const char *str)
 		i++;
 	while (str[i] != 'r')
 		i++;
-	tab[0] = ft_atoi(&str[i + 1]);
-	write(FD, tab, 1);
+	env->tab[0] = ft_atoi(&str[i + 1]);
+	write(FD, env->tab, 1);
 }
 
 static void		print_st2(t_env *env, const char *str, int i, int save)
@@ -120,8 +119,6 @@ void			print_add(t_env *env, const char *str)
 	i = 0;
 	tab[0] = 0x54;
 	write(FD, tab, 1);
-//	while (str[i] > 32)
-//		i++;
 	while (str[i] != 'r')
 		i++;
 	i++;

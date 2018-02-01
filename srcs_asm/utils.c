@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 05:18:30 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 05:31:01 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/01 02:08:15 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ char	*creat_bin(char *str)
 	char	*tmp;
 
 	tab = ft_strsplit(str, '.');
-//	tmp = ft_strjoin(tab[0], ".cor");
-	tmp = ft_strjoin("test", ".cor");
+	tmp = ft_strjoin(tab[0], ".cor");
 	free(tab[0]);
 	free(tab[1]);
 	free(tab);
@@ -66,46 +65,4 @@ void	alloc_op_functions(t_env *env)
 	env->opf[13] = print_lldi;
 	env->opf[14] = print_lfork;
 	env->opf[15] = print_aff;
-}
-
-void	free_tab(char **str, char **tab, int i)
-{
-	int		j;
-
-	j = -1;
-	while (++j < i)
-		ft_strdel(&str[j]);
-	free(tab);
-}
-
-void	free_operator(t_env *env)
-{
-	int		i;
-
-	i = -1;
-	while (++i < 16)
-		ft_strdel(&env->op[i]);
-	free(env->op);
-}
-
-void	free_struct(t_env *env)
-{
-	t_label		*tmp;
-	t_ulabel	*tmp2;
-
-	while (env->label)
-	{
-		tmp = env->label->next;
-		ft_strdel(&env->label->label_name);
-		free(env->label);
-		env->label = tmp;
-	}
-	while (env->ulab)
-	{
-		tmp2 = env->ulab->next;
-		ft_strdel(&env->ulab->label);
-		free(env->ulab);
-		env->ulab = tmp2;
-	}
-	ft_strdel(&env->file_name);
 }

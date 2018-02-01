@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 02:58:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/31 07:26:18 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/01 05:01:11 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	print_op(t_env *env, const char *str)
 		while (tmp)
 		{
 			if (ft_strnstr(str, tmp->label_name, ft_strlen(tmp->label_name)))
-				str += ft_strlen(tmp->label_name) + 2;
-			if (*str == ':')
-				str++;
+				if (str[ft_strlen(tmp->label_name)] == ':')
+					str += ft_strlen(tmp->label_name) + 2;
 			tmp = tmp->next;
 			while (*str && *str < 33)
 				str++;
@@ -85,21 +84,19 @@ void	dispatcher(t_env *env, const char *str)
 void	kingdom_hearts(t_env *env)
 {
 	char	*str;
-	int		*magic;
+//	int		*magic;
 
-	if (!(magic = malloc(sizeof(int))))
-		ft_error("", 1);
-	magic[0] = 0xf383ea00;
+//	if (!(magic = malloc(sizeof(int))))
+//		ft_error("", 1);
+	env->tab[0] = 0xf383ea00;
 	env->bin_name = creat_bin(env->file_name);
 	if ((FD = open(env->bin_name, O_CREAT | O_RDWR, 0777)) == -1)
 		ft_error("", 1);
-	write(FD, magic, 4);
+	write(FD, env->tab, 4);
 	lseek(env->fd, 0, SEEK_SET);
 	env->name = 0;
 	env->comment = 0;
 	while (get_next_line(env->fd, &str))
-	{
 		dispatcher(env, str);
-	}
-	free(magic);
+//	free(magic);
 }

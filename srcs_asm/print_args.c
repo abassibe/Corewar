@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 03:27:40 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/31 07:11:03 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/01 02:00:44 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	print_ind(t_env *env, const char *str, int i)
 	}
 }
 
-void	print_dir2(t_env * env, const char *str, int i, int dir_size)
+void	print_dir2(t_env *env, const char *str, int i, int dir_size)
 {
 	int		tab[1];
 
 	if (dir_size == 4)
 	{
-		if ((tab[0] = (int)ft_atoi_long(&str[i + 1])) < 0 )
+		if ((tab[0] = (int)ft_atoi_long(&str[i + 1])) < 0)
 			tab[0] = 4294967296 + tab[0];
 		tab[0] = switch_int(tab[0]);
 		write(FD, tab, 4);
@@ -52,7 +52,7 @@ void	print_dir2(t_env * env, const char *str, int i, int dir_size)
 	}
 }
 
-void	print_dir(t_env * env, const char *str, int i, int dir_size)
+void	print_dir(t_env *env, const char *str, int i, int dir_size)
 {
 	int		tab[1];
 
@@ -77,7 +77,7 @@ void	print_dir(t_env * env, const char *str, int i, int dir_size)
 		print_dir2(env, str, i, dir_size);
 }
 
-void			print_reg(t_env *env, const char *str, int *i)
+void	print_reg(t_env *env, const char *str, int *i)
 {
 	int		tab[1];
 
@@ -87,7 +87,7 @@ void			print_reg(t_env *env, const char *str, int *i)
 	write(FD, tab, 1);
 }
 
-void			print_aff(t_env *env, const char *str)
+void	print_aff(t_env *env, const char *str)
 {
 	int		tab[1];
 	int		i;

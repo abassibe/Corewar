@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 01:35:50 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/31 06:59:11 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/01 02:06:20 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int		locate_label(t_label *label, const char *str)
 				i++;
 				if (!label->label_name[i] &&
 						(((str[i] < 'a' || str[i] > 'z') &&
-						  (str[i] < '0' || str[i] > '9') &&
-						  str[i] != '_') || !str[i]))
+						(str[i] < '0' || str[i] > '9') &&
+						str[i] != '_') || !str[i]))
 					return (label->pos);
 			}
 			i = 0;

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 05:29:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/30 02:39:23 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/01 01:58:03 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char			is_reg(const char *str)
 
 char			check_ld(t_env *env, char **tab)
 {
-	if (!tab[0] || ! tab[1])
+	if (!tab[0] || !tab[1])
 		return (0);
 	while (*tab[0] < 33)
 		tab[0]++;

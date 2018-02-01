@@ -1,21 +1,20 @@
-.name "test"
-.comment "test"
+.name "tst"
+.comment "tsts"
 
-	 fork  %:label00          		# 3,0,281
-	 ld    %-272,r3           		# 7,3,278
-	 live  %0                 		# 5,10,271
-	 fork  %:label01          		# 3,15,266
-	 ld    %-272,r3           		# 7,18,263
-	 fork  %:label02          		# 3,25,256
-	 ld    %0,r2              		# 7,28,253
-	 ld    %0,r4              		# 7,35,246
-	 zjmp  %:label03          		# 3,42,239
-
-label02: ld    %4,r2              		# 7,45,236
-	 ld    %0,r4              		# 7,52,229
-	 zjmp  %:label03          		# 3,59,222
-
-label01: ld    %-202,r3           		# 7,62,219
-	
-	label00:
-	label03:
+label3:
+live %:label1
+ld :label2,r1
+st r1,:label3
+label2: add r1,r2,r3
+sub r2,r3,r4
+label1: and %:label3,%:label4,r1
+or %:label3,%:label1,r4
+xor %:label4,%:label2,r5
+zjmp %16
+ldi %:label4,%:label1,r16
+label4: sti r12,%:label3,%:label3
+fork %:label3
+lld 15,r13
+lldi r14,r12,r2
+lfork %165
+aff r15

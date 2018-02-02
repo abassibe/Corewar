@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 02:58:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/01 05:01:11 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/02 05:07:21 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,7 @@ void	dispatcher(t_env *env, const char *str)
 void	kingdom_hearts(t_env *env)
 {
 	char	*str;
-//	int		*magic;
 
-//	if (!(magic = malloc(sizeof(int))))
-//		ft_error("", 1);
 	env->tab[0] = 0xf383ea00;
 	env->bin_name = creat_bin(env->file_name);
 	if ((FD = open(env->bin_name, O_CREAT | O_RDWR, 0777)) == -1)
@@ -98,5 +95,4 @@ void	kingdom_hearts(t_env *env)
 	env->comment = 0;
 	while (get_next_line(env->fd, &str))
 		dispatcher(env, str);
-//	free(magic);
 }

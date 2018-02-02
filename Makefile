@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/02/01 04:42:40 by abassibe         ###   ########.fr        #
+#    Updated: 2018/02/02 05:24:29 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,9 @@ SRCS =	asm.c \
 		print_sti.c \
 		free.c
 
-SRCS2 = dasm.c
+SRCS2 = dasm.c \
+		utils.c \
+		get_header.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -53,29 +55,36 @@ SRCPATH2 = ./srcs_dasm/
 
 FLAGS = -Wall -Wextra -Werror -fsanitize=address
 
+DIR_OBJ1 = objs/
+
+DIR_OBJ2 = objs2/
+
 all: $(NAME) $(NAME2)
 
-$(NAME): $(OBJS)
+$(NAME): $(addprefix objs/, $(OBJS))
 	@make -C libft
-	@gcc $(FLAGS) $(OBJS) libft/libft.a -o $(NAME)
+	@gcc $(FLAGS) $^ libft/libft.a -o $(NAME)
 
-$(NAME2): $(OBJS2)
-	@gcc $(FLAGS) $(OBJS2) libft/libft.a -o $(NAME2)
+$(NAME2): $(addprefix objs2/, $(OBJS2))
+	@gcc $(FLAGS) $^ libft/libft.a -o $(NAME2)
 
-%.o: $(SRCPATH)%.c
-	@gcc $(FLAGS) -c $< -I includes
+$(DIR_OBJ1)%.o: $(SRCPATH)%.c
+	@mkdir -p objs
+	@gcc $(FLAGS) -c $< -o $@ -I includes
 
-%.o: $(SRCPATH2)%.c
-	@gcc $(FLAGS) -c $< -I includes
+$(DIR_OBJ2)%.o: $(SRCPATH2)%.c
+	@mkdir -p objs2
+	@gcc $(FLAGS) -c $< -o $@ -I includes
 
 .PHONY: all clean fclean re
 
 clean:
 	@make -C libft clean
-	@rm -rf $(OBJS) $(OBJS2)
+	@rm -rf objs objs2
 
 fclean: clean
 	@make -C libft fclean
 	@rm -rf libft/libft.a $(NAME) $(NAME2)
 
-re: fclean all
+re: fclean
+	@make

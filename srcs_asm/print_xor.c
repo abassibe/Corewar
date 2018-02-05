@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 01:53:49 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/31 07:33:45 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/05 04:29:40 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,19 @@ static void		print_xor2(t_env *env, const char *str, int *i, int save)
 	if (is_ind_print(str, &*i))
 	{
 		save = *i;
-		while (str[*i] != ',')
+		while (str[*i] && str[*i] != ',')
 			(*i)++;
 		(*i)++;
 		print_xor_ind(env, str, &*i, save);
 	}
 	else
 	{
-		while (str[*i] > 32)
+		while (str[*i] && str[*i] > 32)
 			(*i)++;
-		while (str[*i] != 'r')
+		while (str[*i] && str[*i] != 'r')
 			(*i)++;
 		save = *i;
-		while (str[*i] != ',')
+		while (str[*i] && str[*i] != ',')
 			(*i)++;
 		(*i)++;
 		print_xor_reg(env, str, &*i, save);

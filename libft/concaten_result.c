@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 04:22:49 by abassibe          #+#    #+#             */
-/*   Updated: 2017/04/29 05:29:23 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/05 02:05:05 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static char		*str_cut(char *str, int ind)
 
 	i = 0;
 	j = 0;
+	tmp = NULL;
 	tmp = ft_strnew(ind + 1);
 	while (i < ind)
 		tmp[j++] = str[i++];
@@ -73,6 +74,7 @@ int				concaten_result(t_print *lst)
 	int		i;
 
 	i = 0;
+	tmp = NULL;
 	len_conv = (int)ft_strlen(lst->conv);
 	tmp = str_cut(lst->fmt, lst->ind_cut);
 	tmp = str_join(tmp, lst->str, lst->ind_cut, lst->len_str_conv);

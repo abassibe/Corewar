@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:46 by abassibe          #+#    #+#              #
-#    Updated: 2018/02/02 05:24:29 by abassibe         ###   ########.fr        #
+#    Updated: 2018/02/05 06:06:16 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,15 @@ SRCS =	asm.c \
 
 SRCS2 = dasm.c \
 		utils.c \
-		get_header.c
+		get_header.c \
+		get_args.c \
+		get_ld_st.c \
+		get_add_sub.c \
+		get_and_or_xor.c \
+		get_live_zjmp_fork_lfork_aff.c \
+		get_ldi_lldi.c \
+		get_sti.c \
+		get_lld.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -53,7 +61,7 @@ SRCPATH = ./srcs_asm/
 
 SRCPATH2 = ./srcs_dasm/
 
-FLAGS = -Wall -Wextra -Werror -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 
 DIR_OBJ1 = objs/
 

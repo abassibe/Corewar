@@ -6,31 +6,28 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 05:23:58 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/02 05:29:43 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/05 05:55:44 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/dasm.h"
 
-char		get_magic_number(t_env *env)
+char			get_magic_number(t_env *env)
 {
 	int		magic;
 	int		value;
 
 	value = read(env->fd_bin, env->str, 4);
-	if (value == -1)
-	{
-		perror("");
+	if (!check_value_read(env, value))
 		return (0);
-	}
 	magic = 0;
 	magic |= ((env->str[0] & 0xff) << 24);
 	magic |= ((env->str[1] & 0xff) << 16);
-	magic |= ((env->str[2] & 0xff) <<  8);
+	magic |= ((env->str[2] & 0xff) << 8);
 	magic |= ((env->str[3] & 0xff));
 	if (magic != 15369203)
 	{
-		env->error = ft_strdup("Bad magic number");
+		ERR = ft_strdup("Bad magic number");
 		return (0);
 	}
 	return (1);
@@ -40,7 +37,7 @@ static char		get_champ_size(t_env *env)
 {
 	env->champ_size |= ((env->str[0] & 0xff) << 24);
 	env->champ_size |= ((env->str[1] & 0xff) << 16);
-	env->champ_size |= ((env->str[2] & 0xff) <<  8);
+	env->champ_size |= ((env->str[2] & 0xff) << 8);
 	env->champ_size |= ((env->str[3] & 0xff));
 	if (env->champ_size > CHAMP_MAX_SIZE)
 	{
@@ -71,10 +68,7 @@ char			get_header(t_env *env)
 				}
 			}
 	}
-	if (value == -1)
-	{
-		perror("");
+	if (!check_value_read(env, value))
 		return (0);
-	}
 	return (1);
 }

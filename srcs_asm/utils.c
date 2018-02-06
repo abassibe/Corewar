@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 05:18:30 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/01 02:08:15 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 03:40:01 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@ char	*creat_bin(char *str)
 {
 	char	**tab;
 	char	*tmp;
+	int		i;
 
+	i = -1;
 	tab = ft_strsplit(str, '.');
 	tmp = ft_strjoin(tab[0], ".cor");
-	free(tab[0]);
-	free(tab[1]);
+	while (tab[++i])
+		ft_strdel(&tab[i]);
 	free(tab);
 	return (tmp);
 }
 
 void	alloc_operators(t_env *env)
 {
-	env->op = ft_memalloc(sizeof(char *) * 16);
 	env->op[0] = ft_strdup("live");
 	env->op[1] = ft_strdup("ld");
 	env->op[2] = ft_strdup("st");
@@ -48,7 +49,6 @@ void	alloc_operators(t_env *env)
 
 void	alloc_op_functions(t_env *env)
 {
-	env->opf = ft_memalloc(sizeof(void *) * 16);
 	env->opf[0] = print_live;
 	env->opf[1] = print_ld;
 	env->opf[2] = print_st;

@@ -3,60 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: apoisson <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/24 18:11:09 by abassibe          #+#    #+#             */
-/*   Updated: 2017/11/30 02:23:25 by abassibe         ###   ########.fr       */
+/*   Created: 2016/11/16 14:45:38 by apoisson          #+#    #+#             */
+/*   Updated: 2018/02/06 03:43:50 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-static int	c_word(char const *s, char c)
+static int	ft_count_word(const char *s, char c)
 {
-	int		p;
-	int		k;
+	int		i;
+	int		word;
 
-	p = 0;
-	k = 0;
-	while (s[p])
+	i = 0;
+	word = 0;
+	while (s[i] != '\0')
 	{
-		while (s[p] == c)
-			p++;
-		while (s[p] && s[p] != c)
-		{
-			p++;
-			if (s[p] == c || !s[p])
-				k++;
-		}
+		if (s[i] != c && s[i + 1] == c)
+			word++;
+		if (s[i] != c && s[i + 1] == '\0')
+			word++;
+		i++;
 	}
-	return (k);
+	return (word);
+}
+
+static char	*ft_add_word_tab(const char *s, char c, int *i)
+{
+	int		j;
+	char	*str;
+	char	*tmp;
+
+	j = *i;
+	while (s[*i] && s[*i] != c)
+		*i = *i + 1;
+	tmp = ft_strsub(s, j, *i - j);
+	str = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	while (s[*i] == c)
+		*i = *i + 1;
+	return (str);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**tb;
-	int		k;
-	int		p;
-	int		f;
+	int			i;
+	int			j;
+	int			word;
+	char		**tab;
 
-	k = 0;
-	p = 0;
-	f = 0;
-	if (s == NULL ||
-			!(tb = (char **)ft_memalloc(sizeof(char *) * c_word(s, c) + 1)))
+	i = 0;
+	j = 0;
+	if (!s || !c)
 		return (NULL);
-	while (s[k] && p < c_word(s, c))
+	word = ft_count_word(s, c);
+	if (!(tab = (char**)malloc(sizeof(tab) * (word + 1))))
+		return (NULL);
+	while (s[i] == c)
+		i++;
+	while (j < word && s[i])
 	{
-		while (s[k] && s[k] == c)
-			k++;
-		f = k;
-		while (s[f] && s[f] != c)
-			f++;
-		if (p <= c_word(s, c))
-			tb[p] = ft_strsub(s, k, f - k);
-		k = f;
-		p++;
+		tab[j] = ft_add_word_tab(s, c, &i);
+		j++;
 	}
-	return (tb);
+	tab[j] = 0;
+	return (tab);
 }

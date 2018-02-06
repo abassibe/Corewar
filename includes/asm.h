@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/12 02:46:44 by abassibe          #+#    #+#             */
-/*   Updated: 2018/01/31 03:49:23 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 03:47:24 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 
 # define FD env->fd_bin
 # define POS env->pos
-
-extern t_op				op_tab[17];
 
 typedef struct			s_label
 {
@@ -47,18 +45,18 @@ typedef struct			s_env
 	char				name;
 	char				comment;
 	char				*save[3];
-	char				**op;
+	char				*op[16];
 	int					garb;
 	int					i;
 	int					pos;
 	int					tab[1];
-	void				(**opf)();
+	void				(*opf[16])();
 }						t_env;
 
 char					parseur(t_env *env, const char *file_name);
 char					pars_name_comment(t_env *env, const char *str);
 char					pars_core(t_env *env, const char *str);
-char					label_verif(t_env *env);
+char					label_verif(t_ulabel *ulabel, t_label *label);
 char					comment_or_empty(const char *str);
 void					kingdom_hearts(t_env *env);
 int						switch_int(int octet);

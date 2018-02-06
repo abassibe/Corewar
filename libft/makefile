@@ -6,7 +6,7 @@
 #    By: abassibe <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/01 12:45:53 by abassibe          #+#    #+#              #
-#    Updated: 2018/01/20 02:08:55 by abassibe         ###   ########.fr        #
+#    Updated: 2018/02/06 04:03:07 by abassibe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,21 +130,25 @@ OBJS = $(SRCS:.c=.o)
 
 FLAGS = -Wall -Wextra -Werror
 
+DIR_OBJ = objs/
+
 .PHONY: all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@ar rc $(NAME) $(OBJS)
+$(NAME): $(addprefix objs/, $(OBJS))
+	@ar rc $(NAME) $(addprefix objs/, $(OBJS))
 	@ranlib $(NAME)
 
-%.o: ./%.c
-	@gcc $(FLAGS) -c $< -I libft.h
+$(DIR_OBJ)%.o: ./%.c
+	@mkdir -p objs
+	@gcc $(FLAGS) -c $< -o $@ -I libft.h
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf objs
 
 fclean: clean
 	@rm -rf $(NAME)
 
-re: fclean all
+re: fclean
+	@make

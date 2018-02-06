@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 04:08:31 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/05 06:02:03 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 01:23:58 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ char	start(t_env *env, const char *file_name)
 	return (1);
 }
 
+void	free_data(t_env *env)
+{
+	free(env->op);
+	ft_strdel(&env->champ_s);
+	ft_strdel(&ERR);
+	free(env);
+}
+
 int		main(int ac, char **av)
 {
 	int		i;
@@ -73,7 +81,7 @@ int		main(int ac, char **av)
 		}
 		else
 			ft_printf("{green}Decompilation OK : '%s'\n", av[i]);
-		free(env);
+		free_data(env);
 	}
 	if (ac > 2)
 		ft_printf("\n{cyan}------------------------------------------------\n");

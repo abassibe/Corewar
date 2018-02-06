@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 02:07:24 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/01 02:08:24 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 02:51:52 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	free_operator(t_env *env)
 	i = -1;
 	while (++i < 16)
 		ft_strdel(&env->op[i]);
-	free(env->op);
 }
 
 void	free_struct(t_env *env)
@@ -51,5 +50,6 @@ void	free_struct(t_env *env)
 		free(env->ulab);
 		env->ulab = tmp2;
 	}
+	ft_strdel(&env->bin_name);
 	ft_strdel(&env->file_name);
 }

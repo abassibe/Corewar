@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/13 03:10:10 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/01 01:59:20 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 02:36:50 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,25 @@ char			nl_end_of_file(int fd)
 	return (1);
 }
 
-char			label_verif(t_env *env)
+char			label_verif(t_ulabel *ulabel, t_label *label)
 {
 	t_label		*tmp;
 
-	tmp = env->label;
-	if (!env->ulab || !env->label)
+	tmp = label;
+	if (!ulabel || !label)
 		return (1);
-	while (env->ulab)
+	while (ulabel)
 	{
-		while (env->label)
+		while (label)
 		{
-			if (!ft_strcmp(env->label->label_name, env->ulab->label))
+			if (!ft_strcmp(label->label_name, ulabel->label))
 				break ;
-			if (!env->label->next)
+			if (!label->next)
 				return (0);
-			env->label = env->label->next;
+			label = label->next;
 		}
-		env->label = tmp;
-		env->ulab = env->ulab->next;
+		label = tmp;
+		ulabel = ulabel->next;
 	}
 	return (1);
 }
@@ -87,7 +87,8 @@ char			parseur(t_env *env, const char *file_name)
 		ft_strdel(&str);
 	}
 	ft_strdel(&str);
-	if (value == -1 || !nl_end_of_file(env->fd) || !label_verif(env))
+	if (value == -1 || !nl_end_of_file(env->fd) ||
+			!label_verif(env->ulab, env->label))
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 02:58:23 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/02 05:07:21 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 02:52:19 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,9 @@ void	kingdom_hearts(t_env *env)
 	env->name = 0;
 	env->comment = 0;
 	while (get_next_line(env->fd, &str))
+	{
 		dispatcher(env, str);
+		ft_strdel(&str);
+	}
+	ft_strdel(&str);
 }

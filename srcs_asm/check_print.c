@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 01:35:50 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/05 04:29:09 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 03:46:23 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	is_ind_print(const char *str, int *i)
 	while (str[*i] && str[*i] != ':' && str[*i] > 33 && (str[*i] < '0' ||
 				str[*i] > '9') && str[*i] != 'r' && str[*i] != '-')
 	{
-		if (str[*i] =='o' && str[*i + 1] == 'r')
+		if (str[*i] == 'o' && str[*i + 1] == 'r')
 			(*i) += 2;
 		else
 			(*i)++;

@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 04:06:38 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/05 05:39:48 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/06 03:51:26 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ char					get_reg(t_env *env);
 char					*creat_bin(const char *str);
 void					clear_buff(char *str);
 void					alloc_op(t_env*env);
-char					check_value_read(t_env *env,int value);
+char					check_value_read(t_env *env, int value);
 void					ft_error(const char *str, const int check);
 #endif

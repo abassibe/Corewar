@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/02 05:23:58 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/05 05:55:44 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/07 05:15:15 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ char			get_magic_number(t_env *env)
 
 static char		get_champ_size(t_env *env)
 {
+	int		tmp;
+
+	tmp = 0;
 	env->champ_size |= ((env->str[0] & 0xff) << 24);
 	env->champ_size |= ((env->str[1] & 0xff) << 16);
 	env->champ_size |= ((env->str[2] & 0xff) << 8);

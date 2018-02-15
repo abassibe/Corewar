@@ -6,110 +6,111 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 02:38:21 by abassibe          #+#    #+#             */
-/*   Updated: 2018/02/07 04:11:51 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/02/15 01:14:33 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include "../includes/libft.h"
+#include "../includes/diff.h"
 
-char	get_diff(int fd1, int fd2)
+void	check_diff(t_env *env, int *nl, int *octet)
 {
-	char	*str1;
-	char	*str2;
-	int		ret1;
-	int		ret2;
-	int		octet;
-	int		nl;
-
-	octet = 0;
-	str1 = ft_strnew(1);
-	str2 = ft_strnew(1);
-	nl = 0;
-	while (1)
+	if (env->str1[0] != env->str2[0])
 	{
-		ret1 = read(fd1, str1, 1);
-		ret2 = read(fd2, str2, 1);
-		if (ret1 < 1 || ret2 < 1)
-			break ;
-		if (str1[0] != str2[0])
-		{
-			printf("Difference a l'octet %d :\n", octet);
-			ft_printf("{red}[%4d]|[%-4d] | ", str1[0], str2[0]);
-			exit (-1);
-		}
-		ft_printf("{green}[%4d]|[%-4d]", str1[0], str2[0]);
+		ft_printf("\nDifference a l'octet %d :\n\n", *octet);
+		ft_printf("{red}[%4d]|[%-4d]\n\n", env->str1[0], env->str2[0]);
+		exit(-1);
+	}
+	ft_printf("{green}[%4d]|[%-4d]", env->str1[0], env->str2[0]);
+	(*nl)++;
+	if (*nl >= 8)
+	{
+		ft_printf("\n");
+		*nl = 0;
+	}
+	else
+		ft_printf("{blue} ||| ");
+	(*octet)++;
+}
+
+void	case1(t_env env, int nl)
+{
+	ft_printf("{red}[%4d]|[NULL]{blue} ||| ", env.str1[0]);
+	nl++;
+	while ((env.ret1 = read(env.fd1, env.str1, 1)))
+	{
+		ft_printf("{red}[%4d]|[NULL]", env.str1[0]);
 		nl++;
 		if (nl >= 8)
 		{
-			printf("\n");
+			ft_printf("\n");
 			nl = 0;
 		}
 		else
 			ft_printf("{blue} ||| ");
-		octet++;
 	}
-	if (ret1 == 0 && ret2 == 0)
+}
+
+void	case2(t_env env, int nl)
+{
+	ft_printf("{red}[NULL]|[%-4d]{blue} ||| ", env.str1[0], env.str2[0]);
+	nl++;
+	while ((env.ret1 = read(env.fd1, env.str1, 1)))
 	{
-		printf("\n");
-		return (1);
-	}
-	if (ret1 > 0)
-	{
-		ft_printf("{red}[%4d]|[NULL]", str1[0]);
-		while ((ret1 = read(fd1, str1, 1)))
+		ft_printf("{red}[NULL]|[%-4d]", env.str1[0], env.str2[0]);
+		nl++;
+		if (nl >= 8)
 		{
-			ft_printf("{red}[%4d]|[NULL]", str1[0]);
-			if (nl >= 8)
-			{
-				printf("\n");
-				nl = 0;
-			}
-			else
-			ft_printf("{blue} ||| ");
-			octet++;
+			ft_printf("\n");
+			nl = 0;
 		}
+		else
+			ft_printf("{blue} ||| ");
 	}
-	if (ret2 > 0)
+}
+
+void	get_diff(t_env env)
+{
+	int		octet;
+	int		nl;
+
+	octet = 0;
+	nl = 0;
+	while (1)
 	{
-		ft_printf("{red}[NULL]|[%-4d]", str1[0], str2[0]);
-		while ((ret1 = read(fd1, str1, 1)))
-		{
-			ft_printf("{red}[NULL]|[%-4d]", str1[0], str2[0]);
-			if (nl >= 8)
-			{
-				printf("\n");
-				nl = 0;
-			}
-			else
-			ft_printf("{blue} ||| ");
-			octet++;
-		}
+		env.ret1 = read(env.fd1, env.str1, 1);
+		env.ret2 = read(env.fd2, env.str2, 1);
+		if (env.ret1 < 1 || env.ret2 < 1)
+			break ;
+		check_diff(&env, &nl, &octet);
 	}
-	printf("\n");
-	return (0);
+	if (env.ret1 == 0 && env.ret2 == 0)
+	{
+		ft_printf("\n");
+		exit(1);
+	}
+	if (env.ret1 > 0)
+		case1(env, nl);
+	else if (env.ret2 > 0)
+		case2(env, nl);
+	ft_printf("\n");
 }
 
 int		main(int ac, char **av)
 {
-	int		fd1;
-	int		fd2;
+	t_env	env;
 
 	if (ac != 3)
 		return (-1);
-	if ((fd1 = open(av[1], O_RDONLY)) == -1)
+	if ((env.fd1 = open(av[1], O_RDONLY)) == -1)
 	{
 		perror("");
 		return (0);
 	}
-	if ((fd2 = open(av[2], O_RDONLY)) == -1)
+	if ((env.fd2 = open(av[2], O_RDONLY)) == -1)
 	{
 		perror("");
 		return (0);
 	}
-	return (get_diff(fd1, fd2));
+	get_diff(env);
+	return (1);
 }

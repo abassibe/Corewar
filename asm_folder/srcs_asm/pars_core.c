@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 02:33:43 by abassibe          #+#    #+#             */
-/*   Updated: 2018/03/01 04:47:55 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/03/03 04:06:39 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static char		is_label(const char *str, int i)
 		while (++k < 37 && str[j] != LABEL_CHARS[k])
 			;
 		if (k >= 37)
-			return (0);
+		{
+			ft_printf("Wrong LABEL_CHARS in label : {red}%s{eoc}\n", str);
+			exit(-1);
+		}
 		k = -1;
 	}
 	return (1);
@@ -101,20 +104,19 @@ char			pars_core(t_env *env, const char *s)
 		return (1);
 	while (*s < 33)
 		s++;
-	while (s[i] && s[i] != LABEL_CHAR && s[i] > 32 && s[i] != SEPARATOR_CHAR
-			&& s[i] != DIRECT_CHAR)
+	while (s[i] && s[i] != ':' && s[i] != ' ' && s[i] != ',' && s[i] != '%')
 	{
 		i++;
 		if (!s[i])
 			return (0);
-		if (s[i] == LABEL_CHAR)
+		if (s[i] == ':')
 		{
 			if (is_label(s, i))
 				save_label(env, s, i);
 			if (!get_op1(env, &s[i + 1]))
 				return (0);
 		}
-		else if (s[i] == ' ' || s[i] == SEPARATOR_CHAR || s[i] == DIRECT_CHAR)
+		else if (s[i] == ' ' || s[i] == ',' || s[i] == '%')
 			if (!get_op1(env, s))
 				return (0);
 	}

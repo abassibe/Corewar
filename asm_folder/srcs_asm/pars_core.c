@@ -6,7 +6,7 @@
 /*   By: abassibe <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 02:33:43 by abassibe          #+#    #+#             */
-/*   Updated: 2018/03/03 04:06:39 by abassibe         ###   ########.fr       */
+/*   Updated: 2018/03/03 04:22:41 by abassibe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void		save_label(t_env *env, const char *str, int i)
 
 	if (!env->label)
 	{
-		env->label = ft_memalloc(sizeof(t_label));
+		if (!(env->label = ft_memalloc(sizeof(t_label))))
+			exit(-1);
 		env->label->label_name = ft_strndup(str, i);
 		env->label->pos = env->champ_size;
 	}
@@ -48,7 +49,8 @@ static void		save_label(t_env *env, const char *str, int i)
 		tmp = env->label;
 		while (env->label->next)
 			env->label = env->label->next;
-		env->label->next = ft_memalloc(sizeof(t_label));
+		if (!(env->label->next = ft_memalloc(sizeof(t_label))))
+			exit(-1);
 		env->label = env->label->next;
 		env->label->label_name = ft_strndup(str, i);
 		env->label->pos = env->champ_size;
@@ -77,7 +79,8 @@ char			save_ulabel(t_env *env, const char *str)
 		return (0);
 	if (!env->ulab)
 	{
-		env->ulab = (t_ulabel *)ft_memalloc(sizeof(t_ulabel));
+		if (!(env->ulab = (t_ulabel *)ft_memalloc(sizeof(t_ulabel))))
+			exit(-1);
 		tmp2 = get_index(str);
 		env->ulab->label = ft_strdup(tmp2);
 	}
@@ -86,7 +89,8 @@ char			save_ulabel(t_env *env, const char *str)
 		tmp = env->ulab;
 		while (env->ulab->next)
 			env->ulab = env->ulab->next;
-		env->ulab->next = (t_ulabel *)ft_memalloc(sizeof(t_ulabel));
+		if (!(env->ulab->next = (t_ulabel *)ft_memalloc(sizeof(t_ulabel))))
+			exit(-1);
 		tmp2 = get_index(str);
 		env->ulab->next->label = ft_strdup(tmp2);
 		env->ulab = tmp;
